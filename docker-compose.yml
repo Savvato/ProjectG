@@ -1,7 +1,35 @@
-version: '2.1'
+version: '3.7'
 
 services:
-  g-db-postgresql-master:
+  client-service:
+    ports:
+      - "50050:80"
+    build:
+      context: src/
+      dockerfile: ProjectG.ClientService/ProjectG.ClientService.Web/Dockerfile
+
+  document-service:
+    ports:
+      - "50051:80"
+    build:
+      context: src/
+      dockerfile: ProjectG.DocumentService/ProjectG.DocumentService.Api/Dockerfile
+  
+  justice-service:
+    ports:
+      - "50052:80"
+    build:
+      context: src/
+      dockerfile: ProjectG.JusticeService/ProjectG.JusticeService.Api/Dockerfile
+
+  tax-service:
+    ports:
+      - "50053:80"
+    build:
+      context: src/
+      dockerfile: ProjectG.TaxService/ProjectG.TaxService.Api/Dockerfile
+
+  document-db-postgresql-master:
     image: 'bitnami/postgresql:latest'
     ports:
       - '5432'
@@ -9,22 +37,22 @@ services:
       - POSTGRESQL_REPLICATION_MODE=master
       - POSTGRESQL_REPLICATION_USER=repl_user
       - POSTGRESQL_REPLICATION_PASSWORD=repl_password
-      - POSTGRESQL_USERNAME=g_user
-      - POSTGRESQL_PASSWORD=g_password
-      - POSTGRESQL_DATABASE=g_db
+      - POSTGRESQL_USERNAME=document_user
+      - POSTGRESQL_PASSWORD=document_password
+      - POSTGRESQL_DATABASE=document_db
       - POSTGRESQL_SYNCHRONOUS_COMMIT_MODE=on
       - POSTGRESQL_NUM_SYNCHRONOUS_REPLICAS=1
-  g-db-postgresql-slave:
+  document-db-postgresql-slave:
     image: 'bitnami/postgresql:latest'
     ports:
       - '5433'
     depends_on:
-      - g-db-postgresql-master
+      - document-db-postgresql-master
     environment:
       - POSTGRESQL_REPLICATION_MODE=slave
       - POSTGRESQL_REPLICATION_USER=repl_user
       - POSTGRESQL_REPLICATION_PASSWORD=repl_password
-      - POSTGRESQL_MASTER_HOST=g-db-postgresql-master
+      - POSTGRESQL_MASTER_HOST=document-db-postgresql-master
       - POSTGRESQL_MASTER_PORT_NUMBER=5432
       - POSTGRESQL_USERNAME=g_user
       - POSTGRESQL_PASSWORD=g_password
