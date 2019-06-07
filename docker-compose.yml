@@ -54,9 +54,9 @@ services:
       - POSTGRESQL_REPLICATION_PASSWORD=repl_password
       - POSTGRESQL_MASTER_HOST=document-db-postgresql-master
       - POSTGRESQL_MASTER_PORT_NUMBER=5432
-      - POSTGRESQL_USERNAME=g_user
-      - POSTGRESQL_PASSWORD=g_password
-      - POSTGRESQL_DATABASE=g_db
+      - POSTGRESQL_USERNAME=document_user
+      - POSTGRESQL_PASSWORD=document_password
+      - POSTGRESQL_DATABASE=document_db
 
   rabbitmq:
     image: bitnami/rabbitmq:latest
@@ -82,4 +82,3 @@ services:
       - ALLOW_PLAINTEXT_LISTENER=yes
     depends_on: 
       - zookeeper
-  

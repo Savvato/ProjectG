@@ -6,6 +6,8 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2-stretch AS build
 WORKDIR /src
 COPY ["ProjectG.DocumentService/ProjectG.DocumentService.Api/ProjectG.DocumentService.Api.csproj", "ProjectG.DocumentService/ProjectG.DocumentService.Api/"]
+COPY ["ProjectG.DocumentService/ProjectG.DocumentService.Infrastructure/ProjectG.DocumentService.Infrastructure.csproj", "ProjectG.DocumentService/ProjectG.DocumentService.Infrastructure/"]
+COPY ["ProjectG.DocumentService/ProjectG.DocumentService.Core/ProjectG.DocumentService.Core.csproj", "ProjectG.DocumentService/ProjectG.DocumentService.Core/"]
 RUN dotnet restore "ProjectG.DocumentService/ProjectG.DocumentService.Api/ProjectG.DocumentService.Api.csproj"
 COPY . .
 WORKDIR "/src/ProjectG.DocumentService/ProjectG.DocumentService.Api"
