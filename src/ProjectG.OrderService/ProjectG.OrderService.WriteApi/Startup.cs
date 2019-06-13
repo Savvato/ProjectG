@@ -6,7 +6,10 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
 
+    using ProjectG.Core;
     using ProjectG.OrderService.Infrastructure.Db;
+    using ProjectG.OrderService.WriteApi.Commands;
+    using ProjectG.OrderService.WriteApi.DTO;
 
 
     public class Startup
@@ -30,9 +33,11 @@
                     {
                         optionsBuilder.MigrationsAssembly(assemblyName: typeof(OrderDbContext).Assembly.GetName().Name);
                         optionsBuilder.EnableRetryOnFailure();
-                        optionsBuilder.CommandTimeout(60);
+                        optionsBuilder.CommandTimeout(180);
                     });
             });
+
+            services.AddTransient<ICommandHandler<OrderCreationModel>, CreateOrderCommand>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

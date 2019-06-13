@@ -43,10 +43,21 @@ services:
     build:
       context: src/
       dockerfile: ProjectG.ProductService/ProjectG.ProductService.ReadApi/Dockerfile
+    depends_on: 
+      - product-db-postgresql
+
+  product-write-api:
+    ports: 
+      - "50055:80"
+    build: 
+      context: src/
+      dockerfile: ProjectG.ProductService/ProjectG.ProductService.WriteApi/Dockerfile
+    depends_on: 
+      - product-db-postgresql
 
   basket-api:
     ports:
-      - "50055:80"
+      - "50056:80"
     build:
       context: src/
       dockerfile: ProjectG.BasketService/ProjectG.BasketService.Api/Dockerfile
@@ -86,6 +97,15 @@ services:
       - POSTGRESQL_PORT_NUMBER=5433
       - POSTGRESQL_PASSWORD=order_password
       - POSTGRESQL_DATABASE=order_db
+
+  product-db-postgresql:
+    image: 'bitnami/postgresql:latest'
+    ports:
+      - "5434:5434"
+    environment:
+      - POSTGRESQL_PORT_NUMBER=5434
+      - POSTGRESQL_PASSWORD=product_password
+      - POSTGRESQL_DATABASE=product_db
 
   rabbitmq:
     image: bitnami/rabbitmq:latest

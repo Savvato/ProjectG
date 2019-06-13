@@ -30,7 +30,7 @@ namespace ProjectG.OrderService.ReadApi
                     {
                         optionsBuilder.MigrationsAssembly(assemblyName: typeof(OrderDbContext).Assembly.GetName().Name);
                         optionsBuilder.EnableRetryOnFailure();
-                        optionsBuilder.CommandTimeout(60);
+                        optionsBuilder.CommandTimeout(180);
                     });
             });
         }
