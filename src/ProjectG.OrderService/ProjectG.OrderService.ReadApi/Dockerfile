@@ -1,10 +1,12 @@
-FROM microsoft/dotnet:2.2-aspnetcore-runtime AS base
+FROM mcr.microsoft.com/dotnet/core/aspnet:2.2-stretch-slim AS base
 WORKDIR /app
 EXPOSE 80
 
-FROM microsoft/dotnet:2.2-sdk AS build
+FROM mcr.microsoft.com/dotnet/core/sdk:2.2-stretch AS build
 WORKDIR /src
 COPY ["ProjectG.OrderService/ProjectG.OrderService.ReadApi/ProjectG.OrderService.ReadApi.csproj", "ProjectG.OrderService/ProjectG.OrderService.ReadApi/"]
+COPY ["ProjectG.OrderService/ProjectG.OrderService.Infrastructure.Db/ProjectG.OrderService.Infrastructure.Db.csproj", "ProjectG.OrderService/ProjectG.OrderService.Infrastructure.Db/"]
+COPY ["ProjectG.OrderService/ProjectG.OrderService.Core/ProjectG.OrderService.Core.csproj", "ProjectG.OrderService/ProjectG.OrderService.Core/"]
 RUN dotnet restore "ProjectG.OrderService/ProjectG.OrderService.ReadApi/ProjectG.OrderService.ReadApi.csproj"
 COPY . .
 WORKDIR "/src/ProjectG.OrderService/ProjectG.OrderService.ReadApi"
