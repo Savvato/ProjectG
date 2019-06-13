@@ -25,7 +25,7 @@ namespace ProjectG.OrderService.ReadApi
             services.AddDbContext<OrderDbContext>(options =>
             {
                 options.UseNpgsql(
-                    connectionString: configuration.GetConnectionString("DefaultConnection"),
+                    connectionString: this.configuration.GetConnectionString("DefaultConnection"),
                     optionsBuilder =>
                     {
                         optionsBuilder.MigrationsAssembly(assemblyName: typeof(OrderDbContext).Assembly.GetName().Name);

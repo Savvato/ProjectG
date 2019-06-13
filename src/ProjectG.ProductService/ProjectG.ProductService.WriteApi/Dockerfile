@@ -1,11 +1,13 @@
-FROM mcr.microsoft.com/dotnet/core/aspnet:2.2-stretch-slim AS base
+FROM microsoft/dotnet:2.2-aspnetcore-runtime AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/core/sdk:2.2-stretch AS build
+FROM microsoft/dotnet:2.2-sdk AS build
 WORKDIR /src
 COPY ["ProjectG.ProductService/ProjectG.ProductService.WriteApi/ProjectG.ProductService.WriteApi.csproj", "ProjectG.ProductService/ProjectG.ProductService.WriteApi/"]
+COPY ["ProjectG.ProductService/ProjectG.ProductService.Infrastructure.Db/ProjectG.ProductService.Infrastructure.Db.csproj", "ProjectG.ProductService/ProjectG.ProductService.Infrastructure.Db/"]
+COPY ["ProjectG.ProductService/ProjectG.ProductService.Core/ProjectG.ProductService.Core.csproj", "ProjectG.ProductService/ProjectG.ProductService.Core/"]
 RUN dotnet restore "ProjectG.ProductService/ProjectG.ProductService.WriteApi/ProjectG.ProductService.WriteApi.csproj"
 COPY . .
 WORKDIR "/src/ProjectG.ProductService/ProjectG.ProductService.WriteApi"

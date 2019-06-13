@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28917.181
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.705
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProjectG.ClientService", "ProjectG.ClientService", "{F4B4327A-96EA-4C86-A389-60BC1F7ECEB4}"
 EndProject
@@ -29,11 +29,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProjectG.BasketService", "P
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectG.BasketService.Api", "ProjectG.BasketService\ProjectG.BasketService.Api\ProjectG.BasketService.Api.csproj", "{F20E5EB1-33B2-42D9-914F-B25CC2FF851D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectG.Core", "ProjectG.Core\ProjectG.Core.csproj", "{884D0D11-EBC7-49E9-A24B-3654AD95DD0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectG.Core", "ProjectG.Core\ProjectG.Core.csproj", "{884D0D11-EBC7-49E9-A24B-3654AD95DD0C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectG.ProductService.WriteApi", "ProjectG.ProductService\ProjectG.ProductService.WriteApi\ProjectG.ProductService.WriteApi.csproj", "{FC756113-BAC8-41EB-BF1A-8888B1ABFA2A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectG.ProductService.WriteApi", "ProjectG.ProductService\ProjectG.ProductService.WriteApi\ProjectG.ProductService.WriteApi.csproj", "{FC756113-BAC8-41EB-BF1A-8888B1ABFA2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectG.ProductService.Core", "ProjectG.ProductService\ProjectG.ProductService.Core\ProjectG.ProductService.Core.csproj", "{A672A845-FF01-4645-BB76-EC8CF3BB688E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectG.ProductService.Core", "ProjectG.ProductService\ProjectG.ProductService.Core\ProjectG.ProductService.Core.csproj", "{A672A845-FF01-4645-BB76-EC8CF3BB688E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectG.ProductService.Infrastructure.Db", "ProjectG.ProductService\ProjectG.ProductService.Infrastructure.Db\ProjectG.ProductService.Infrastructure.Db.csproj", "{9EAE2A87-0D3F-4E50-BCDB-F604ADA407AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -177,6 +179,18 @@ Global
 		{A672A845-FF01-4645-BB76-EC8CF3BB688E}.Release|x64.Build.0 = Release|Any CPU
 		{A672A845-FF01-4645-BB76-EC8CF3BB688E}.Release|x86.ActiveCfg = Release|Any CPU
 		{A672A845-FF01-4645-BB76-EC8CF3BB688E}.Release|x86.Build.0 = Release|Any CPU
+		{9EAE2A87-0D3F-4E50-BCDB-F604ADA407AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EAE2A87-0D3F-4E50-BCDB-F604ADA407AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EAE2A87-0D3F-4E50-BCDB-F604ADA407AE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9EAE2A87-0D3F-4E50-BCDB-F604ADA407AE}.Debug|x64.Build.0 = Debug|Any CPU
+		{9EAE2A87-0D3F-4E50-BCDB-F604ADA407AE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9EAE2A87-0D3F-4E50-BCDB-F604ADA407AE}.Debug|x86.Build.0 = Debug|Any CPU
+		{9EAE2A87-0D3F-4E50-BCDB-F604ADA407AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EAE2A87-0D3F-4E50-BCDB-F604ADA407AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EAE2A87-0D3F-4E50-BCDB-F604ADA407AE}.Release|x64.ActiveCfg = Release|Any CPU
+		{9EAE2A87-0D3F-4E50-BCDB-F604ADA407AE}.Release|x64.Build.0 = Release|Any CPU
+		{9EAE2A87-0D3F-4E50-BCDB-F604ADA407AE}.Release|x86.ActiveCfg = Release|Any CPU
+		{9EAE2A87-0D3F-4E50-BCDB-F604ADA407AE}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -192,6 +206,7 @@ Global
 		{F20E5EB1-33B2-42D9-914F-B25CC2FF851D} = {ABFD8E12-4F5B-4E77-880E-386FBA066771}
 		{FC756113-BAC8-41EB-BF1A-8888B1ABFA2A} = {E6F72ABA-CE3A-498B-BF3A-2265699A94B2}
 		{A672A845-FF01-4645-BB76-EC8CF3BB688E} = {E6F72ABA-CE3A-498B-BF3A-2265699A94B2}
+		{9EAE2A87-0D3F-4E50-BCDB-F604ADA407AE} = {E6F72ABA-CE3A-498B-BF3A-2265699A94B2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {92B0239F-F43E-41C1-81FE-072C85F95A3A}
