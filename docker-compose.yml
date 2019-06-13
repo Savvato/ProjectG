@@ -14,8 +14,10 @@ services:
     build:
       context: src/
       dockerfile: ProjectG.OrderService/ProjectG.OrderService.WriteApi/Dockerfile
+    depends_on:
+      - order-db-postgresql-master
     environment: 
-      - ConnectionStrings__DefaultConnection: Host=localhost;Port=5432;Username=order_user;Password=order_password;Database=order_db;
+      ConnectionStrings__DefaultConnection: "Host=order-db-postgresql-master;Port=5432;Username=postgres;Password=order_password;Database=order_db"
 
   order-read-api:
     ports:
@@ -23,8 +25,10 @@ services:
     build:
       context: src/
       dockerfile: ProjectG.OrderService/ProjectG.OrderService.ReadApi/Dockerfile
+    depends_on:
+      - order-db-postgresql-slave
     environment: 
-      - ConnectionStrings__DefaultConnection: Host=localhost;Port=5433;Username=order_user;Password=order_password;Database=order_db;
+      ConnectionStrings__DefaultConnection: "Host=order-db-postgresql-slave;Port=5433;Username=postgres;Password=order_password;Database=order_db"
 
   customer-api:
     ports:
@@ -57,12 +61,12 @@ services:
   order-db-postgresql-master:
     image: 'bitnami/postgresql:latest'
     ports:
-      - "5432"
+      - "5432:5432"
     environment:
       - POSTGRESQL_REPLICATION_MODE=master
       - POSTGRESQL_REPLICATION_USER=repl_user
       - POSTGRESQL_REPLICATION_PASSWORD=repl_password
-      - POSTGRESQL_USERNAME=order_user
+      - POSTGRESQL_PORT_NUMBER=5432
       - POSTGRESQL_PASSWORD=order_password
       - POSTGRESQL_DATABASE=order_db
       - POSTGRESQL_SYNCHRONOUS_COMMIT_MODE=on
@@ -70,7 +74,7 @@ services:
   order-db-postgresql-slave:
     image: 'bitnami/postgresql:latest'
     ports:
-      - "5433"
+      - "5433:5433"
     depends_on:
       - order-db-postgresql-master
     environment:
@@ -79,7 +83,7 @@ services:
       - POSTGRESQL_REPLICATION_PASSWORD=repl_password
       - POSTGRESQL_MASTER_HOST=order-db-postgresql-master
       - POSTGRESQL_MASTER_PORT_NUMBER=5432
-      - POSTGRESQL_USERNAME=order_user
+      - POSTGRESQL_PORT_NUMBER=5433
       - POSTGRESQL_PASSWORD=order_password
       - POSTGRESQL_DATABASE=order_db
 
@@ -90,7 +94,7 @@ services:
     environment:
       - RABBITMQ_USERNAME=g_user
       - RABBITMQ_PASSWORD=g_password
-      - RABBITMQ_ERL_COOKIE=AJsbnj5kSh54
+      - RABBITMQ_ERL_COOKIE=Jahsbjt5hjh
 
   zookeeper:
     image: 'bitnami/zookeeper:latest'

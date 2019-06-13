@@ -7,10 +7,8 @@ WORKDIR /src
 COPY ["ProjectG.OrderService/ProjectG.OrderService.WriteApi/ProjectG.OrderService.WriteApi.csproj", "ProjectG.OrderService/ProjectG.OrderService.WriteApi/"]
 COPY ["ProjectG.OrderService/ProjectG.OrderService.Infrastructure.Db/ProjectG.OrderService.Infrastructure.Db.csproj", "ProjectG.OrderService/ProjectG.OrderService.Infrastructure.Db/"]
 COPY ["ProjectG.OrderService/ProjectG.OrderService.Core/ProjectG.OrderService.Core.csproj", "ProjectG.OrderService/ProjectG.OrderService.Core/"]
-RUN dotnet restore "ProjectG.OrderService/ProjectG.OrderService.WriteApi/ProjectG.OrderService.WriteApi.csproj"
 COPY . .
 WORKDIR "/src/ProjectG.OrderService/ProjectG.OrderService.WriteApi"
-RUN dotnet build "ProjectG.OrderService.WriteApi.csproj" -c Release -o /app
 
 FROM build AS publish
 RUN dotnet publish "ProjectG.OrderService.WriteApi.csproj" -c Release -o /app

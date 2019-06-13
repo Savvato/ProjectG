@@ -29,6 +29,8 @@
                     optionsBuilder =>
                     {
                         optionsBuilder.MigrationsAssembly(assemblyName: typeof(OrderDbContext).Assembly.GetName().Name);
+                        optionsBuilder.EnableRetryOnFailure();
+                        optionsBuilder.CommandTimeout(60);
                     });
             });
         }
@@ -36,6 +38,12 @@
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            using (IServiceScope serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                OrderDbContext dbContext = serviceScope.ServiceProvider.GetRequiredService<OrderDbContext>();
+                dbContext.Database.Migrate();
+            }
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
