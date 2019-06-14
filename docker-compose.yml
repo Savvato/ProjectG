@@ -45,6 +45,8 @@ services:
       dockerfile: ProjectG.ProductService/ProjectG.ProductService.ReadApi/Dockerfile
     depends_on: 
       - product-db-postgresql
+    environment: 
+      ConnectionStrings__DefaultConnection: "Host=product-db-postgresql;Port=5434;Username=postgres;Password=product_password;Database=product_db"
 
   product-write-api:
     ports: 
@@ -54,6 +56,8 @@ services:
       dockerfile: ProjectG.ProductService/ProjectG.ProductService.WriteApi/Dockerfile
     depends_on: 
       - product-db-postgresql
+    environment: 
+      ConnectionStrings__DefaultConnection: "Host=product-db-postgresql;Port=5434;Username=postgres;Password=product_password;Database=product_db"
 
   basket-api:
     ports:

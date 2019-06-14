@@ -1,36 +1,52 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-
-namespace ProjectG.ProductService.WriteApi
+﻿namespace ProjectG.ProductService.WriteApi
 {
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.EntityFrameworkCore;
+
+    using ProjectG.ProductService.Infrastructure.Db;
+
     public class Startup
     {
+        private readonly IConfiguration configuration;
+
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            this.configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc();
+            services.AddDbContext<ProductDbContext>(options =>
+            {
+                options.UseNpgsql(
+                    connectionString: this.configuration.GetConnectionString("DefaultConnection"),
+                    optionsBuilder =>
+                    {
+                        optionsBuilder.MigrationsAssembly(assemblyName: typeof(ProductDbContext).Assembly.GetName().Name);
+                        optionsBuilder.EnableRetryOnFailure();
+                        optionsBuilder.CommandTimeout(180);
+                    });
+            });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            using (IServiceScope serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                ProductDbContext dbContext = serviceScope.ServiceProvider.GetRequiredService<ProductDbContext>();
+                dbContext.Database.Migrate();
+            }
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
             else
             {
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
