@@ -36,6 +36,10 @@ services:
     build:
       context: src/
       dockerfile: ProjectG.CustomerService/ProjectG.CustomerService.Api/Dockerfile
+    depends_on: 
+      - customer-db-postgresql
+    environment: 
+      ConnectionStrings__DefaultConnection: "Host=customer-db-postgresql;Port=5435;Username=postgres;Password=customer_password;Database=customer_db"
 
   product-read-api:
     ports:
@@ -112,6 +116,15 @@ services:
       - POSTGRESQL_PORT_NUMBER=5434
       - POSTGRESQL_PASSWORD=product_password
       - POSTGRESQL_DATABASE=product_db
+  
+  customer-db-postgresql:
+    image: 'bitnami/postgresql:latest'
+    ports:
+      - "5435:5435"
+    environment:
+      - POSTGRESQL_PORT_NUMBER=5435
+      - POSTGRESQL_PASSWORD=customer_password
+      - POSTGRESQL_DATABASE=customer_db
 
   # rabbitmq:
   #   image: bitnami/rabbitmq:latest

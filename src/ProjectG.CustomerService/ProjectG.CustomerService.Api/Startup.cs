@@ -1,29 +1,55 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-
-namespace ProjectG.CustomerService.Api
+﻿namespace ProjectG.CustomerService.Api
 {
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+
+    using ProjectG.Core;
+    using ProjectG.CustomerService.Api.Commands;
+    using ProjectG.CustomerService.Api.DTO;
+    using ProjectG.CustomerService.Core.Interfaces;
+    using ProjectG.CustomerService.Infrastructure.Db;
+
     public class Startup
     {
+        private readonly IConfiguration configuration;
+
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            this.configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc();
+
+            services.AddDbContext<CustomerDbContext>(options =>
+            {
+                options.UseNpgsql(
+                    connectionString: configuration.GetConnectionString("DefaultConnection"),
+                    optionsBuilder =>
+                    {
+                        optionsBuilder.MigrationsAssembly(assemblyName: typeof(CustomerDbContext).Assembly.GetName().Name);
+                        optionsBuilder.EnableRetryOnFailure();
+                        optionsBuilder.CommandTimeout(180);
+                    });
+            });
+
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
+
+            services.AddScoped<ICommandHandler<CustomerCreationModel>, CreateCustomerCommand>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            using (IServiceScope serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                CustomerDbContext dbContext = serviceScope.ServiceProvider.GetRequiredService<CustomerDbContext>();
+                dbContext.Database.Migrate();
+            }
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
