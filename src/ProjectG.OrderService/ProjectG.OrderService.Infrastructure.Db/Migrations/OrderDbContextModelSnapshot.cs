@@ -2,10 +2,9 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ProjectG.OrderService.Core.Models;
-using ProjectG.OrderService.Infrastructure.Db;
 
 namespace ProjectG.OrderService.Infrastructure.Db.Migrations
 {
