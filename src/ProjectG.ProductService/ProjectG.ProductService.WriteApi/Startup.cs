@@ -39,6 +39,12 @@
 
             services.AddTransient<ICommandHandler<ProductCreationModel>, CreateProductCommand>();
             services.AddScoped<IProductRepository, ProductRepository>();
+
+            services.AddDistributedRedisCache(options =>
+            {
+                options.InstanceName = "ProductsCache";
+                options.Configuration = this.configuration.GetConnectionString("Redis");
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -53,12 +59,7 @@
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseHsts();
-            }
 
-            app.UseHttpsRedirection();
             app.UseMvc();
         }
     }

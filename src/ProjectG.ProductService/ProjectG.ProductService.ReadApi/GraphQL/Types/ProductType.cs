@@ -9,7 +9,7 @@
         public ProductType()
         {
             this.Field(product => product.Id, type: typeof(IdGraphType), nullable: false);
-            this.Field(product => product.Name, type: typeof(IntGraphType), nullable: false);
+            this.Field(product => product.Name, nullable: false);
             this.Field(product => product.Description, nullable: false);
             this.Field(product => product.Price, nullable: false);
             this.Field(product => product.Count, nullable: false);

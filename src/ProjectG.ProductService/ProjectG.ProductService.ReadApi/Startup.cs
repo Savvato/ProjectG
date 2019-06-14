@@ -30,7 +30,6 @@
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
             services.AddDbContext<ProductDbContext>(options =>
             {
                 options.UseNpgsql(
@@ -56,6 +55,12 @@
                     options.ExposeExceptions = this.hostingEnvironment.IsDevelopment();
                 })
                 .AddGraphTypes(ServiceLifetime.Scoped);
+
+            services.AddDistributedRedisCache(options =>
+            {
+                options.InstanceName = "ProductsCache";
+                options.Configuration = this.configuration.GetConnectionString("Redis");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -68,8 +73,6 @@
 
             app.UseGraphQL<ProductSchema>("/product");
             app.UseGraphQLPlayground(options: new GraphQLPlaygroundOptions());
-
-            app.UseMvc();
         }
     }
 }

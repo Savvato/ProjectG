@@ -47,6 +47,7 @@ services:
       - product-db-postgresql
     environment: 
       ConnectionStrings__DefaultConnection: "Host=product-db-postgresql;Port=5434;Username=postgres;Password=product_password;Database=product_db"
+      ConnectionStrings__Redis: "product-redis:6379,password=products_password"
 
   product-write-api:
     ports: 
@@ -58,6 +59,7 @@ services:
       - product-db-postgresql
     environment: 
       ConnectionStrings__DefaultConnection: "Host=product-db-postgresql;Port=5434;Username=postgres;Password=product_password;Database=product_db"
+      ConnectionStrings__Redis: "product-redis:6379,password=products_password"
 
   basket-api:
     ports:
@@ -66,12 +68,12 @@ services:
       context: src/
       dockerfile: ProjectG.BasketService/ProjectG.BasketService.Api/Dockerfile
 
-  redis:
+  product-redis:
     image: 'bitnami/redis:latest'
     ports:
       - "6379:6379"
     environment:
-      - REDIS_PASSWORD=password123
+      - REDIS_PASSWORD=products_password
 
   order-db-postgresql-master:
     image: 'bitnami/postgresql:latest'
@@ -111,27 +113,27 @@ services:
       - POSTGRESQL_PASSWORD=product_password
       - POSTGRESQL_DATABASE=product_db
 
-  rabbitmq:
-    image: bitnami/rabbitmq:latest
-    ports:
-      - "15672:15672"
-    environment:
-      - RABBITMQ_USERNAME=g_user
-      - RABBITMQ_PASSWORD=g_password
-      - RABBITMQ_ERL_COOKIE=Jahsbjt5hjh
+  # rabbitmq:
+  #   image: bitnami/rabbitmq:latest
+  #   ports:
+  #     - "15672:15672"
+  #   environment:
+  #     - RABBITMQ_USERNAME=g_user
+  #     - RABBITMQ_PASSWORD=g_password
+  #     - RABBITMQ_ERL_COOKIE=Jahsbjt5hjh
 
-  zookeeper:
-    image: 'bitnami/zookeeper:latest'
-    ports:
-      - "2181:2181"
-    environment:
-      - ALLOW_ANONYMOUS_LOGIN=yes
-  kafka:
-    image: 'bitnami/kafka:latest'
-    ports:
-      - "9092:9092"
-    environment:
-      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
-      - ALLOW_PLAINTEXT_LISTENER=yes
-    depends_on: 
-      - zookeeper
+  # zookeeper:
+  #   image: 'bitnami/zookeeper:latest'
+  #   ports:
+  #     - "2181:2181"
+  #   environment:
+  #     - ALLOW_ANONYMOUS_LOGIN=yes
+  # kafka:
+  #   image: 'bitnami/kafka:latest'
+  #   ports:
+  #     - "9092:9092"
+  #   environment:
+  #     - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+  #     - ALLOW_PLAINTEXT_LISTENER=yes
+  #   depends_on: 
+  #     - zookeeper
