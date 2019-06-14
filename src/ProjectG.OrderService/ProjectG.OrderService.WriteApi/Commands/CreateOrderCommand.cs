@@ -7,7 +7,7 @@
 
     public class CreateOrderCommand : ICommandHandler<OrderCreationModel>
     {
-        public async Task Handle(OrderCreationModel commandData)
+        public async Task Execute(OrderCreationModel commandData)
         {
             throw new System.NotImplementedException();
         }

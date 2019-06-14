@@ -4,6 +4,6 @@
 
     public interface ICommandHandler<in T> where T : class
     {
-        Task Handle(T commandData);
+        Task Execute(T commandData);
     }
 }

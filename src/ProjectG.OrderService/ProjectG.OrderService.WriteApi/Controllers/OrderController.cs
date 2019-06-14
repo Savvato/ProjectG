@@ -26,7 +26,7 @@
                 return this.BadRequest(this.ModelState);
             }
 
-            await this.createOrderCommand.Handle(orderCreationModel);
+            await this.createOrderCommand.Execute(orderCreationModel);
 
             return this.Ok();
         }
