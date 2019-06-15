@@ -10,8 +10,11 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
 
-    using ProjectG.ProductService.Core.Interfaces;
+    using ProjectG.ProductService.Infrastructure;
+    using ProjectG.ProductService.Infrastructure.Cache;
+    using ProjectG.ProductService.Infrastructure.Cache.Interfaces;
     using ProjectG.ProductService.Infrastructure.Db;
+    using ProjectG.ProductService.Infrastructure.Interfaces;
     using ProjectG.ProductService.ReadApi.GraphQL.Queries;
     using ProjectG.ProductService.ReadApi.GraphQL.Schemas;
     using ProjectG.ProductService.ReadApi.GraphQL.Types;
@@ -27,7 +30,6 @@
             this.hostingEnvironment = hostingEnvironment;
         }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ProductDbContext>(options =>
@@ -42,6 +44,7 @@
                     });
             });
 
+            services.AddScoped<IProductCache, ProductCache>();
             services.AddScoped<IProductRepository, ProductRepository>();
 
             services.AddScoped<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));

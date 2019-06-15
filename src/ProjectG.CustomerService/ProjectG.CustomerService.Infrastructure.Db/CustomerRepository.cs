@@ -3,6 +3,8 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    using Microsoft.EntityFrameworkCore;
+
     using ProjectG.CustomerService.Core.Interfaces;
     using ProjectG.CustomerService.Core.Models;
 
@@ -15,9 +17,14 @@
             this.dbContext = dbContext;
         }
 
-        public IQueryable<Customer> GetQuery()
+        public IQueryable<Customer> Get()
         {
             return this.dbContext.Customers;
+        }
+
+        public async Task<Customer> Get(long id)
+        {
+            return await this.dbContext.Customers.FirstOrDefaultAsync(customer => customer.Id == id);
         }
 
         public async Task Add(Customer customer)

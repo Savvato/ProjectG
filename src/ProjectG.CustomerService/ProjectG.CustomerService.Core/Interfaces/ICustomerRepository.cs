@@ -7,7 +7,9 @@
 
     public interface ICustomerRepository
     {
-        IQueryable<Customer> GetQuery();
+        IQueryable<Customer> Get();
+
+        Task<Customer> Get(long id);
 
         Task Add(Customer customer);
     }

@@ -5,8 +5,8 @@
     using Microsoft.Extensions.Caching.Distributed;
 
     using ProjectG.Core;
-    using ProjectG.ProductService.Core.Interfaces;
     using ProjectG.ProductService.Core.Models;
+    using ProjectG.ProductService.Infrastructure.Interfaces;
     using ProjectG.ProductService.WriteApi.DTO;
     using ProjectG.ProductService.WriteApi.Extensions;
 

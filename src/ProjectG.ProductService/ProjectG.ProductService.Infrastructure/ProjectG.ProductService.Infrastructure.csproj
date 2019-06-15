@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ProjectG.ProductService.Core\ProjectG.ProductService.Core.csproj" />
+    <ProjectReference Include="..\ProjectG.ProductService.Infrastructure.Cache\ProjectG.ProductService.Infrastructure.Cache.csproj" />
+    <ProjectReference Include="..\ProjectG.ProductService.Infrastructure.Db\ProjectG.ProductService.Infrastructure.Db.csproj" />
+  </ItemGroup>
+
+</Project>

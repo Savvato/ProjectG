@@ -1,4 +1,4 @@
-﻿namespace ProjectG.ProductService.Core.Interfaces
+﻿namespace ProjectG.ProductService.Infrastructure.Interfaces
 {
     using System.Linq;
     using System.Threading.Tasks;
@@ -7,7 +7,9 @@
 
     public interface IProductRepository
     {
-        IQueryable<Product> GetQuery();
+        IQueryable<Product> Get();
+
+        Task<Product> Get(long id);
 
         Task Add(Product product);
     }

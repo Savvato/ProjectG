@@ -18,7 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ProjectG.ProductService.Infrastructure.Cache\ProjectG.ProductService.Infrastructure.Cache.csproj" />
     <ProjectReference Include="..\ProjectG.ProductService.Infrastructure.Db\ProjectG.ProductService.Infrastructure.Db.csproj" />
+    <ProjectReference Include="..\ProjectG.ProductService.Infrastructure\ProjectG.ProductService.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

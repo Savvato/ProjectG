@@ -7,8 +7,11 @@
     using Microsoft.EntityFrameworkCore;
 
     using ProjectG.Core;
-    using ProjectG.ProductService.Core.Interfaces;
+    using ProjectG.ProductService.Infrastructure;
+    using ProjectG.ProductService.Infrastructure.Cache;
+    using ProjectG.ProductService.Infrastructure.Cache.Interfaces;
     using ProjectG.ProductService.Infrastructure.Db;
+    using ProjectG.ProductService.Infrastructure.Interfaces;
     using ProjectG.ProductService.WriteApi.Commands;
     using ProjectG.ProductService.WriteApi.DTO;
 
@@ -38,6 +41,8 @@
             });
 
             services.AddTransient<ICommandHandler<ProductCreationModel>, CreateProductCommand>();
+
+            services.AddScoped<IProductCache, ProductCache>();
             services.AddScoped<IProductRepository, ProductRepository>();
 
             services.AddDistributedRedisCache(options =>

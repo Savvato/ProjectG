@@ -17,30 +17,30 @@ namespace ProjectG.CustomerService.Infrastructure.Db.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             modelBuilder.Entity("ProjectG.CustomerService.Core.Models.Customer", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd();
+            {
+                b.Property<long>("Id")
+                    .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("text");
+                b.Property<string>("Address")
+                    .IsRequired()
+                    .HasColumnType("text");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
+                b.Property<string>("Email")
+                    .IsRequired()
+                    .HasColumnType("varchar(255)");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
+                b.Property<string>("FirstName")
+                    .IsRequired()
+                    .HasColumnType("varchar(255)");
 
-                    b.Property<string>("Surname")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
+                b.Property<string>("Surname")
+                    .IsRequired()
+                    .HasColumnType("varchar(255)");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.ToTable("Customers");
-                });
+                b.ToTable("Customers");
+            });
 #pragma warning restore 612, 618
         }
     }
