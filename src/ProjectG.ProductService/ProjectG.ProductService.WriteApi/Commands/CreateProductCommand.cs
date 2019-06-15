@@ -13,14 +13,12 @@
     public class CreateProductCommand : ICommandHandler<ProductCreationModel>
     {
         private readonly IProductRepository productRepository;
-        private readonly IDistributedCache cache;
 
         public CreateProductCommand(
             IProductRepository productRepository, 
             IDistributedCache cache)
         {
             this.productRepository = productRepository;
-            this.cache = cache;
         }
 
         public async Task Execute(ProductCreationModel commandData)
@@ -28,8 +26,6 @@
             Product product = commandData.ToProduct();
 
             await this.productRepository.Add(product);
-
-            await cache.Set($"product.{product.Id}", product);
         }
     }
 }

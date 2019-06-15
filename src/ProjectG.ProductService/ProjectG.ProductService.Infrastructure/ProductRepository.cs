@@ -43,6 +43,8 @@
         {
             await dbContext.Products.AddAsync(product);
             await dbContext.SaveChangesAsync();
+
+            await this.cache.Set(product);
         }
     }
 }

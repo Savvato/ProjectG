@@ -1,5 +1,6 @@
 ﻿namespace ProjectG.ProductService.Infrastructure.Cache
 {
+    using System;
     using System.Threading.Tasks;
 
     using Microsoft.Extensions.Caching.Distributed;
@@ -10,6 +11,11 @@
 
     public class ProductCache : IProductCache
     {
+        private static readonly DistributedCacheEntryOptions DefaultCacheEntryOptions = new DistributedCacheEntryOptions
+        {
+            AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5)
+        };
+
         private readonly IDistributedCache cache;
 
         public ProductCache(IDistributedCache cache)
@@ -26,7 +32,7 @@
         {
             if (product == null) return;
 
-            await this.cache.Set<Product>(this.GetKey(product.Id), product);
+            await this.cache.Set<Product>(this.GetKey(product.Id), product, ProductCache.DefaultCacheEntryOptions);
         }
 
         private string GetKey(long productId)

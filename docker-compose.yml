@@ -82,6 +82,8 @@ services:
     build:
       context: src/
       dockerfile: ProjectG.BasketService/ProjectG.BasketService.Api/Dockerfile
+    environment: 
+      ConnectionStrings__DefaultConnection: "Host=basket-db-postgresql-master;Port=5436;Username=postgres;Password=basket_password;Database=basket_db"
 
   product-redis:
     image: 'bitnami/redis:latest'
@@ -136,6 +138,15 @@ services:
       - POSTGRESQL_PORT_NUMBER=5435
       - POSTGRESQL_PASSWORD=customer_password
       - POSTGRESQL_DATABASE=customer_db
+
+  basket-db-postgresql:
+    image: 'bitnami/postgresql:latest'
+    ports:
+      - "5436:5436"
+    environment:
+      - POSTGRESQL_PORT_NUMBER=5436
+      - POSTGRESQL_PASSWORD=basket_password
+      - POSTGRESQL_DATABASE=basket_db
 
   # rabbitmq:
   #   image: bitnami/rabbitmq:latest
