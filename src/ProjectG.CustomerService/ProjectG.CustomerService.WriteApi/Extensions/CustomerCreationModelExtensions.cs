@@ -1,7 +1,7 @@
-﻿namespace ProjectG.CustomerService.Api.Extensions
+﻿namespace ProjectG.CustomerService.WriteApi.Extensions
 {
-    using ProjectG.CustomerService.Api.DTO;
     using ProjectG.CustomerService.Core.Models;
+    using ProjectG.CustomerService.WriteApi.DTO;
 
     public static class CustomerCreationModelExtensions
     {

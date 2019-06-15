@@ -4,17 +4,18 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2-stretch AS build
 WORKDIR /src
-COPY ["ProjectG.CustomerService/ProjectG.CustomerService.WriteApi/ProjectG.CustomerService.WriteApi.csproj", "ProjectG.CustomerService/ProjectG.CustomerService.WriteApi/"]
+COPY ["ProjectG.CustomerService/ProjectG.CustomerService.ReadApi/ProjectG.CustomerService.ReadApi.csproj", "ProjectG.CustomerService/ProjectG.CustomerService.ReadApi/"]
 COPY ["ProjectG.CustomerService/ProjectG.CustomerService.Infrastructure.Db/ProjectG.CustomerService.Infrastructure.Db.csproj", "ProjectG.CustomerService/ProjectG.CustomerService.Infrastructure.Db/"]
 COPY ["ProjectG.CustomerService/ProjectG.CustomerService.Core/ProjectG.CustomerService.Core.csproj", "ProjectG.CustomerService/ProjectG.CustomerService.Core/"]
-COPY ["ProjectG.Core/ProjectG.Core.csproj", "ProjectG.Core/"]
+RUN dotnet restore "ProjectG.CustomerService/ProjectG.CustomerService.ReadApi/ProjectG.CustomerService.ReadApi.csproj"
 COPY . .
-WORKDIR "/src/ProjectG.CustomerService/ProjectG.CustomerService.WriteApi"
+WORKDIR "/src/ProjectG.CustomerService/ProjectG.CustomerService.ReadApi"
+RUN dotnet build "ProjectG.CustomerService.ReadApi.csproj" -c Release -o /app
 
 FROM build AS publish
-RUN dotnet publish "ProjectG.CustomerService.WriteApi.csproj" -c Release -o /app
+RUN dotnet publish "ProjectG.CustomerService.ReadApi.csproj" -c Release -o /app
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
-ENTRYPOINT ["dotnet", "ProjectG.CustomerService.WriteApi.dll"]
+ENTRYPOINT ["dotnet", "ProjectG.CustomerService.ReadApi.dll"]

@@ -11,10 +11,8 @@ COPY ["ProjectG.ProductService/ProjectG.ProductService.Core/ProjectG.ProductServ
 COPY ["ProjectG.ProductService/ProjectG.ProductService.Infrastructure.Db/ProjectG.ProductService.Infrastructure.Db.csproj", "ProjectG.ProductService/ProjectG.ProductService.Infrastructure.Db/"]
 COPY ["ProjectG.ProductService/ProjectG.ProductService.Infrastructure.Cache/ProjectG.ProductService.Infrastructure.Cache.csproj", "ProjectG.ProductService/ProjectG.ProductService.Infrastructure.Cache/"]
 COPY ["ProjectG.Core/ProjectG.Core.csproj", "ProjectG.Core/"]
-RUN dotnet restore "ProjectG.ProductService/ProjectG.ProductService.WriteApi/ProjectG.ProductService.WriteApi.csproj"
 COPY . .
 WORKDIR "/src/ProjectG.ProductService/ProjectG.ProductService.WriteApi"
-RUN dotnet build "ProjectG.ProductService.WriteApi.csproj" -c Release -o /app
 
 FROM build AS publish
 RUN dotnet publish "ProjectG.ProductService.WriteApi.csproj" -c Release -o /app

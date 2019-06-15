@@ -1,12 +1,12 @@
-﻿namespace ProjectG.CustomerService.Api.Commands
+﻿namespace ProjectG.CustomerService.WriteApi.Commands
 {
     using System.Threading.Tasks;
 
     using ProjectG.Core;
-    using ProjectG.CustomerService.Api.DTO;
-    using ProjectG.CustomerService.Api.Extensions;
     using ProjectG.CustomerService.Core.Interfaces;
     using ProjectG.CustomerService.Core.Models;
+    using ProjectG.CustomerService.WriteApi.DTO;
+    using ProjectG.CustomerService.WriteApi.Extensions;
 
     public class CreateCustomerCommand : ICommandHandler<CustomerCreationModel>
     {

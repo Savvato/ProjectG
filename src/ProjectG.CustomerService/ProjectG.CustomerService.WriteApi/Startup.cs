@@ -1,4 +1,4 @@
-﻿namespace ProjectG.CustomerService.Api
+﻿namespace ProjectG.CustomerService.WriteApi
 {
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -7,10 +7,10 @@
     using Microsoft.Extensions.DependencyInjection;
 
     using ProjectG.Core;
-    using ProjectG.CustomerService.Api.Commands;
-    using ProjectG.CustomerService.Api.DTO;
     using ProjectG.CustomerService.Core.Interfaces;
     using ProjectG.CustomerService.Infrastructure.Db;
+    using ProjectG.CustomerService.WriteApi.Commands;
+    using ProjectG.CustomerService.WriteApi.DTO;
 
     public class Startup
     {

@@ -1,4 +1,4 @@
-﻿namespace ProjectG.CustomerService.Api.DTO
+﻿namespace ProjectG.CustomerService.WriteApi.DTO
 {
     using System.ComponentModel.DataAnnotations;
 

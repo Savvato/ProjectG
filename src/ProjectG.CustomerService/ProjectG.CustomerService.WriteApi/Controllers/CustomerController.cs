@@ -1,11 +1,11 @@
-﻿namespace ProjectG.CustomerService.Api.Controllers
+﻿namespace ProjectG.CustomerService.WriteApi.Controllers
 {
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
 
     using ProjectG.Core;
-    using ProjectG.CustomerService.Api.DTO;
+    using ProjectG.CustomerService.WriteApi.DTO;
 
     [Route("api/[controller]")]
     [ApiController]

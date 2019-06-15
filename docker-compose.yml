@@ -30,12 +30,23 @@ services:
     environment: 
       ConnectionStrings__DefaultConnection: "Host=order-db-postgresql-slave;Port=5433;Username=postgres;Password=order_password;Database=order_db"
 
-  customer-api:
+  customer-write-api:
     ports:
       - "50053:80"
     build:
       context: src/
-      dockerfile: ProjectG.CustomerService/ProjectG.CustomerService.Api/Dockerfile
+      dockerfile: ProjectG.CustomerService/ProjectG.CustomerService.WriteApi/Dockerfile
+    depends_on: 
+      - customer-db-postgresql
+    environment: 
+      ConnectionStrings__DefaultConnection: "Host=customer-db-postgresql;Port=5435;Username=postgres;Password=customer_password;Database=customer_db"
+
+  customer-read-api:
+    ports:
+      - "50054:80"
+    build:
+      context: src/
+      dockerfile: ProjectG.CustomerService/ProjectG.CustomerService.ReadApi/Dockerfile
     depends_on: 
       - customer-db-postgresql
     environment: 
@@ -43,7 +54,7 @@ services:
 
   product-read-api:
     ports:
-      - "50054:80"
+      - "50055:80"
     build:
       context: src/
       dockerfile: ProjectG.ProductService/ProjectG.ProductService.ReadApi/Dockerfile
@@ -55,7 +66,7 @@ services:
 
   product-write-api:
     ports: 
-      - "50055:80"
+      - "50056:80"
     build: 
       context: src/
       dockerfile: ProjectG.ProductService/ProjectG.ProductService.WriteApi/Dockerfile
@@ -67,7 +78,7 @@ services:
 
   basket-api:
     ports:
-      - "50056:80"
+      - "50058:80"
     build:
       context: src/
       dockerfile: ProjectG.BasketService/ProjectG.BasketService.Api/Dockerfile
