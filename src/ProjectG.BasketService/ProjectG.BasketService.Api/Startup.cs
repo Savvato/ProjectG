@@ -7,9 +7,12 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
 
+    using ProjectG.BasketService.Api.Commands;
+    using ProjectG.BasketService.Api.DTO;
     using ProjectG.BasketService.Infrastructure;
     using ProjectG.BasketService.Infrastructure.Db;
     using ProjectG.BasketService.Infrastructure.Interfaces;
+    using ProjectG.Core;
 
     public class Startup
     {
@@ -37,6 +40,7 @@
             });
 
             services.AddScoped<IBasketRepository, BasketRepository>();
+            services.AddScoped<ICommandHandler<BasketPositionCreationModel>, CreateBasketPositionCommand>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
