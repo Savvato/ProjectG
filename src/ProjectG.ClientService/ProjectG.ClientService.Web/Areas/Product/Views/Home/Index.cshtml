@@ -1,0 +1,21 @@
+﻿@model IEnumerable<ProductModel>
+
+<div class="text-center">
+    <h4 class="display-4">Products List</h4>
+</div>
+
+<div class="card-deck">
+    @foreach (ProductModel product in this.Model)
+    {
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">@product.Name</h5>
+                <p class="card-text">@product.Description</p>
+                <p class="card-text">Count: @product.Count</p>
+                <p class="card-text">Price: @product.Price</p>
+
+                <a asp-route-id="@product.Id" asp-action="View" asp-controller="Home" asp-area="Product" class="btn btn-primary">View</a>
+            </div>
+        </div>
+    }
+</div>

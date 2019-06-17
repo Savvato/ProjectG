@@ -6,9 +6,13 @@
     using Microsoft.Extensions.DependencyInjection;
 
     using ProjectG.ClientService.Infrastructure;
+    using ProjectG.ClientService.Infrastructure.BasketApi;
+    using ProjectG.ClientService.Infrastructure.BasketApi.Interfaces;
     using ProjectG.ClientService.Infrastructure.CustomerApi;
     using ProjectG.ClientService.Infrastructure.CustomerApi.Interfaces;
     using ProjectG.ClientService.Infrastructure.Interfaces;
+    using ProjectG.ClientService.Infrastructure.ProductApi;
+    using ProjectG.ClientService.Infrastructure.ProductApi.Interfaces;
 
     public class Startup
     {
@@ -22,8 +26,13 @@
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
             services.AddScoped<ICustomerReadApiClient, CustomerReadApiClient>();
+            services.AddScoped<IBasketGraphQLClient, BasketGraphQLClient>();
+            services.AddScoped<IProductReadApiClient, ProductReadApiClient>();
+
             services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

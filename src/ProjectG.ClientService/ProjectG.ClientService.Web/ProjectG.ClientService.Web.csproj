@@ -20,11 +20,16 @@
   <ItemGroup>
     <Folder Include="Areas\Customer\Data\" />
     <Folder Include="Areas\Customer\Models\" />
+    <Folder Include="Areas\Product\Data\" />
+    <Folder Include="Areas\Product\Models\" />
+    <Folder Include="Areas\Product\Views\" />
   </ItemGroup>
 
 
   <ItemGroup>
+    <ProjectReference Include="..\ProjectG.ClientService.Infrastructure.BasketApi\ProjectG.ClientService.Infrastructure.BasketApi.csproj" />
     <ProjectReference Include="..\ProjectG.ClientService.Infrastructure.CustomerApi\ProjectG.ClientService.Infrastructure.CustomerApi.csproj" />
+    <ProjectReference Include="..\ProjectG.ClientService.Infrastructure.ProductApi\ProjectG.ClientService.Infrastructure.ProductApi.csproj" />
     <ProjectReference Include="..\ProjectG.ClientService.Infrastructure\ProjectG.ClientService.Infrastructure.csproj" />
   </ItemGroup>
 

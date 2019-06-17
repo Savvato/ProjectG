@@ -4,11 +4,12 @@
     using System.Threading.Tasks;
 
     using ProjectG.ClientService.Infrastructure.CustomerApi.DTO;
+    using ProjectG.ClientService.Infrastructure.DTO;
 
     public interface ICustomerRepository
     {
         Task<IEnumerable<CustomerModel>> Get();
 
-        Task<CustomerModel> Get(long customerId);
+        Task<CustomerDetailedModel> Get(long customerId);
     }
 }

@@ -1,11 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ProjectG.ClientService.Infrastructure.BasketApi\ProjectG.ClientService.Infrastructure.BasketApi.csproj" />
     <ProjectReference Include="..\ProjectG.ClientService.Infrastructure.CustomerApi\ProjectG.ClientService.Infrastructure.CustomerApi.csproj" />
+    <ProjectReference Include="..\ProjectG.ClientService.Infrastructure.ProductApi\ProjectG.ClientService.Infrastructure.ProductApi.csproj" />
   </ItemGroup>
 
 </Project>

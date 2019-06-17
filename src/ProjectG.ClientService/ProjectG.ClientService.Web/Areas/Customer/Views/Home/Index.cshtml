@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<CustomerModel>
 
 <div class="text-center">
-    <h3 class="display-3">Customers List</h3>
+    <h4 class="display-4">Customers List</h4>
 </div>
 
 <div class="card-deck">
@@ -11,7 +11,7 @@
             <div class="card-body">
                 <h5 class="card-title">@customer.FirstName @customer.Surname</h5>
                 <p class="card-text">Email: @customer.Email</p>
-                <a href="#" class="btn btn-primary">View</a>
+                <a asp-route-id="@customer.Id" asp-action="View" asp-controller="Home" asp-area="Customer" class="btn btn-primary">View</a>
             </div>
         </div>
     }

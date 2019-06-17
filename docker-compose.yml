@@ -10,6 +10,8 @@ services:
     environment: 
       ASPNETCORE_ENVIRONMENT: Development
       CustomerApi__GraphQLEndpoint: "http://customer-read-api:80/graphql/customer"
+      BasketApi__GraphQLEndpoint: "http://basket-api:80/graphql/basket"
+      ProductApi__GraphQLEndpoint: "http://product-read-api:80/graphql/product"
 
   order-write-api:
     ports:
@@ -67,6 +69,7 @@ services:
       dockerfile: ProjectG.ProductService/ProjectG.ProductService.ReadApi/Dockerfile
     depends_on: 
       - product-db-postgresql
+      - product-redis
     environment: 
       ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__DefaultConnection: "Host=product-db-postgresql;Port=5434;Username=postgres;Password=product_password;Database=product_db"
@@ -80,6 +83,7 @@ services:
       dockerfile: ProjectG.ProductService/ProjectG.ProductService.WriteApi/Dockerfile
     depends_on: 
       - product-db-postgresql
+      - product-redis
     environment: 
       ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__DefaultConnection: "Host=product-db-postgresql;Port=5434;Username=postgres;Password=product_password;Database=product_db"
