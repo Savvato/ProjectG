@@ -7,6 +7,9 @@ services:
     build:
       context: src/
       dockerfile: ProjectG.ClientService/ProjectG.ClientService.Web/Dockerfile
+    environment: 
+      ASPNETCORE_ENVIRONMENT: Development
+      CustomerApi__GraphQLEndpoint: "http://customer-read-api:80/graphql/customer"
 
   order-write-api:
     ports:
@@ -17,6 +20,7 @@ services:
     depends_on:
       - order-db-postgresql-master
     environment: 
+      ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__DefaultConnection: "Host=order-db-postgresql-master;Port=5432;Username=postgres;Password=order_password;Database=order_db"
 
   order-read-api:
@@ -28,6 +32,7 @@ services:
     depends_on:
       - order-db-postgresql-slave
     environment: 
+      ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__DefaultConnection: "Host=order-db-postgresql-slave;Port=5433;Username=postgres;Password=order_password;Database=order_db"
 
   customer-write-api:
@@ -39,6 +44,7 @@ services:
     depends_on: 
       - customer-db-postgresql
     environment: 
+      ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__DefaultConnection: "Host=customer-db-postgresql;Port=5435;Username=postgres;Password=customer_password;Database=customer_db"
 
   customer-read-api:
@@ -50,6 +56,7 @@ services:
     depends_on: 
       - customer-db-postgresql
     environment: 
+      ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__DefaultConnection: "Host=customer-db-postgresql;Port=5435;Username=postgres;Password=customer_password;Database=customer_db"
 
   product-read-api:
@@ -61,6 +68,7 @@ services:
     depends_on: 
       - product-db-postgresql
     environment: 
+      ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__DefaultConnection: "Host=product-db-postgresql;Port=5434;Username=postgres;Password=product_password;Database=product_db"
       ConnectionStrings__Redis: "product-redis:6379,password=products_password"
 
@@ -73,6 +81,7 @@ services:
     depends_on: 
       - product-db-postgresql
     environment: 
+      ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__DefaultConnection: "Host=product-db-postgresql;Port=5434;Username=postgres;Password=product_password;Database=product_db"
       ConnectionStrings__Redis: "product-redis:6379,password=products_password"
 
@@ -85,6 +94,7 @@ services:
     depends_on: 
       - basket-db-postgresql
     environment: 
+      ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__DefaultConnection: "Host=basket-db-postgresql;Port=5436;Username=postgres;Password=basket_password;Database=basket_db"
 
   product-redis:

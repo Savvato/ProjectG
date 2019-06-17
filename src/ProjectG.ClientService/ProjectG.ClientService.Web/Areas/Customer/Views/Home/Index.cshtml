@@ -1,0 +1,18 @@
+﻿@model IEnumerable<CustomerModel>
+
+<div class="text-center">
+    <h3 class="display-3">Customers List</h3>
+</div>
+
+<div class="card-deck">
+    @foreach (CustomerModel customer in this.Model)
+    {
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">@customer.FirstName @customer.Surname</h5>
+                <p class="card-text">Email: @customer.Email</p>
+                <a href="#" class="btn btn-primary">View</a>
+            </div>
+        </div>
+    }
+</div>
