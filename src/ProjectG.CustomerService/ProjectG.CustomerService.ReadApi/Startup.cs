@@ -55,15 +55,22 @@
                 .AddGraphTypes(ServiceLifetime.Scoped);
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
-            if (env.IsDevelopment())
+            if (this.hostingEnvironment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseGraphQL<CustomerSchema>("/customer");
-            app.UseGraphQLPlayground(options: new GraphQLPlaygroundOptions());
+            app.UseGraphQL<CustomerSchema>(path: "/graphql/customer");
+
+            if (this.hostingEnvironment.IsDevelopment())
+            {
+                app.UseGraphQLPlayground(options: new GraphQLPlaygroundOptions
+                {
+                    GraphQLEndPoint = "/graphql/customer"
+                });
+            }
         }
     }
 }

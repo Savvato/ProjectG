@@ -82,8 +82,10 @@ services:
     build:
       context: src/
       dockerfile: ProjectG.BasketService/ProjectG.BasketService.Api/Dockerfile
+    depends_on: 
+      - basket-db-postgresql
     environment: 
-      ConnectionStrings__DefaultConnection: "Host=basket-db-postgresql-master;Port=5436;Username=postgres;Password=basket_password;Database=basket_db"
+      ConnectionStrings__DefaultConnection: "Host=basket-db-postgresql;Port=5436;Username=postgres;Password=basket_password;Database=basket_db"
 
   product-redis:
     image: 'bitnami/redis:latest'

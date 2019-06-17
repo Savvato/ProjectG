@@ -1,5 +1,9 @@
 ﻿namespace ProjectG.BasketService.Api
 {
+    using global::GraphQL;
+    using global::GraphQL.Server;
+    using global::GraphQL.Server.Ui.Playground;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
@@ -9,6 +13,9 @@
 
     using ProjectG.BasketService.Api.Commands;
     using ProjectG.BasketService.Api.DTO;
+    using ProjectG.BasketService.Api.GraphQL.Queries;
+    using ProjectG.BasketService.Api.GraphQL.Schemas;
+    using ProjectG.BasketService.Api.GraphQL.Types;
     using ProjectG.BasketService.Infrastructure;
     using ProjectG.BasketService.Infrastructure.Db;
     using ProjectG.BasketService.Infrastructure.Interfaces;
@@ -17,10 +24,12 @@
     public class Startup
     {
         private readonly IConfiguration configuration;
+        private readonly IHostingEnvironment hostingEnvironment;
 
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment hostingEnvironment)
         {
             this.configuration = configuration;
+            this.hostingEnvironment = hostingEnvironment;
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -41,15 +50,43 @@
 
             services.AddScoped<IBasketRepository, BasketRepository>();
             services.AddScoped<ICommandHandler<BasketPositionCreationModel>, CreateBasketPositionCommand>();
+
+            services.AddScoped<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));
+
+            services.AddScoped<BasketPositionType>();
+            services.AddScoped<BasketPositionQuery>();
+            services.AddScoped<BasketPositionSchema>();
+
+            services.AddGraphQL(options =>
+                {
+                    options.ExposeExceptions = this.hostingEnvironment.IsDevelopment();
+                })
+                .AddGraphTypes(ServiceLifetime.Scoped);
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
-            if (env.IsDevelopment())
+            using (IServiceScope serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                BasketDbContext dbContext = serviceScope.ServiceProvider.GetRequiredService<BasketDbContext>();
+                dbContext.Database.Migrate();
+            }
+
+            if (this.hostingEnvironment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseGraphQL<BasketPositionSchema>(path: "/graphql/basket");
+
+            if (this.hostingEnvironment.IsDevelopment())
+            {
+                app.UseGraphQLPlayground(options: new GraphQLPlaygroundOptions
+                {
+                    GraphQLEndPoint = "/graphql/basket"
+                });
+            }
+            
             app.UseMvc();
         }
     }

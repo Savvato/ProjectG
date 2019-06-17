@@ -8,6 +8,7 @@ COPY ["ProjectG.BasketService/ProjectG.BasketService.Api/ProjectG.BasketService.
 COPY ["ProjectG.BasketService/ProjectG.BasketService.Infrastructure.Db/ProjectG.BasketService.Infrastructure.Db.csproj", "ProjectG.BasketService/ProjectG.BasketService.Infrastructure.Db/"]
 COPY ["ProjectG.BasketService/ProjectG.BasketService.Core/ProjectG.BasketService.Core.csproj", "ProjectG.BasketService/ProjectG.BasketService.Core/"]
 COPY ["ProjectG.BasketService/ProjectG.BasketService.Infrastructure/ProjectG.BasketService.Infrastructure.csproj", "ProjectG.BasketService/ProjectG.BasketService.Infrastructure/"]
+COPY ["ProjectG.Core/ProjectG.Core.csproj", "ProjectG.Core/"]
 COPY . .
 WORKDIR "/src/ProjectG.BasketService/ProjectG.BasketService.Api"
 

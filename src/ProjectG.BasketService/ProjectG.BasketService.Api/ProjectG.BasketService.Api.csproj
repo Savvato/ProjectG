@@ -8,6 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="GraphQL" Version="2.4.0" />
+    <PackageReference Include="GraphQL.Server.Transports.AspNetCore" Version="3.4.0" />
+    <PackageReference Include="GraphQL.Server.Ui.Playground" Version="3.4.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.4.10" />
@@ -15,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\ProjectG.Core\ProjectG.Core.csproj" />
     <ProjectReference Include="..\ProjectG.BasketService.Infrastructure.Db\ProjectG.BasketService.Infrastructure.Db.csproj" />
     <ProjectReference Include="..\ProjectG.BasketService.Infrastructure\ProjectG.BasketService.Infrastructure.csproj" />
   </ItemGroup>
