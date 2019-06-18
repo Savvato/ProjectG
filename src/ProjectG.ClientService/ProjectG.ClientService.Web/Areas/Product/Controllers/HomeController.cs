@@ -1,12 +1,14 @@
 ﻿namespace ProjectG.ClientService.Web.Areas.Product.Controllers
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
 
     using ProjectG.ClientService.Infrastructure.Interfaces;
     using ProjectG.ClientService.Infrastructure.ProductApi.DTO;
+    using ProjectG.ClientService.Web.Areas.Product.Services;
 
     [Area("Product")]
     [Route("[area]/[action]")]
@@ -31,6 +33,18 @@
         {
             ProductModel product = await this.productRepository.Get(id);
             return this.View(product);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Generate([FromForm] int count)
+        {
+            ProductFaker productFaker = new ProductFaker();
+            IEnumerable<ProductWriteModel> generatedProducts = productFaker.Generate(count);
+
+            await Task.WhenAll(
+                generatedProducts.Select(this.productRepository.Create));
+
+            return this.RedirectToAction("Index");
         }
     }
 }

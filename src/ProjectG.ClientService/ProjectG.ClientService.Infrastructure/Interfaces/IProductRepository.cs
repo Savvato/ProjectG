@@ -10,5 +10,7 @@
         Task<IEnumerable<ProductModel>> Get();
 
         Task<ProductModel> Get(long id);
+
+        Task Create(ProductWriteModel product);
     }
 }

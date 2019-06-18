@@ -4,15 +4,23 @@
     <h4 class="display-4">Customers List</h4>
 </div>
 
-<div class="card-deck">
-    @foreach (CustomerModel customer in this.Model)
-    {
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">@customer.FirstName @customer.Surname</h5>
-                <p class="card-text">Email: @customer.Email</p>
-                <a asp-route-id="@customer.Id" asp-action="View" asp-controller="Home" asp-area="Customer" class="btn btn-primary">View</a>
+<form class="form-inline" asp-action="Generate" asp-controller="Home" asp-area="Customer" method="post">
+    <label class="sr-only" for="count">Count: </label>
+    <input type="number" name="count" class="form-control mb-2 mr-sm-2" id="count">
+    <button type="submit" class="btn btn-primary mb-2">Generate</button>
+</form>
+
+<div class="container-fluid">
+    <div class="row justify-content-around">
+        @foreach (CustomerModel customer in this.Model)
+        {
+            <div class="col-5 card" style="margin-top: 5px; margin-bottom: 5px;">
+                <div class="card-body">
+                    <h5 class="card-title">@customer.FirstName @customer.Surname</h5>
+                    <p class="card-text">Email: @customer.Email</p>
+                    <a asp-route-id="@customer.Id" asp-action="View" asp-controller="Home" asp-area="Customer" class="btn btn-primary">View</a>
+                </div>
             </div>
-        </div>
-    }
+        }
+    </div>
 </div>

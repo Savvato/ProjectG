@@ -1,6 +1,7 @@
 ﻿namespace ProjectG.ClientService.Web.Areas.Customer.Controllers
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
@@ -8,6 +9,7 @@
     using ProjectG.ClientService.Infrastructure.CustomerApi.DTO;
     using ProjectG.ClientService.Infrastructure.DTO;
     using ProjectG.ClientService.Infrastructure.Interfaces;
+    using ProjectG.ClientService.Web.Areas.Customer.Services;
 
     [Area("Customer")]
     [Route("[area]/[action]")]
@@ -34,6 +36,17 @@
             CustomerDetailedModel customer = await this.customerRepository.Get(id);
 
             return this.View(customer);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Generate([FromForm] int count)
+        {
+            CustomerFaker customerFaker = new CustomerFaker();
+            IEnumerable<CustomerWriteModel> generatedCustomers = customerFaker.Generate(count);
+
+            await Task.WhenAll(generatedCustomers.Select(this.customerRepository.Create));
+
+            return this.RedirectToAction("Index");
         }
     }
 }

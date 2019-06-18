@@ -14,11 +14,16 @@
     public class CustomerRepository : ICustomerRepository
     {
         private readonly ICustomerReadApiClient customerReadApiClient;
+        private readonly ICustomerWriteApiClient customerWriteApiClient;
         private readonly IBasketGraphQLClient basketGraphQLClient;
 
-        public CustomerRepository(ICustomerReadApiClient customerReadApiClient, IBasketGraphQLClient basketGraphQLClient)
+        public CustomerRepository(
+            ICustomerReadApiClient customerReadApiClient, 
+            ICustomerWriteApiClient customerWriteApiClient, 
+            IBasketGraphQLClient basketGraphQLClient)
         {
             this.customerReadApiClient = customerReadApiClient;
+            this.customerWriteApiClient = customerWriteApiClient;
             this.basketGraphQLClient = basketGraphQLClient;
         }
 
@@ -47,6 +52,11 @@
                 Customer = customerModel,
                 Basket = basket ?? new List<BasketPositionModel>()
             };
+        }
+
+        public async Task Create(CustomerWriteModel customer)
+        {
+            await this.customerWriteApiClient.Create(customer);
         }
     }
 }

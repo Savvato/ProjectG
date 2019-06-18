@@ -11,5 +11,7 @@
         Task<IEnumerable<CustomerModel>> Get();
 
         Task<CustomerDetailedModel> Get(long customerId);
+
+        Task Create(CustomerWriteModel customer);
     }
 }

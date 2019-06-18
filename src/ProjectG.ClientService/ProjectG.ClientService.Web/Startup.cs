@@ -26,10 +26,13 @@
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddHttpClient();
 
             services.AddScoped<ICustomerReadApiClient, CustomerReadApiClient>();
+            services.AddScoped<ICustomerWriteApiClient, CustomerWriteApiClient>();
             services.AddScoped<IBasketGraphQLClient, BasketGraphQLClient>();
             services.AddScoped<IProductReadApiClient, ProductReadApiClient>();
+            services.AddScoped<IProductWriteApiClient, ProductWriteApiClient>();
 
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();

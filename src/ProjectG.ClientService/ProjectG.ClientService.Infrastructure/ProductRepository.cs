@@ -10,10 +10,14 @@
     public class ProductRepository : IProductRepository
     {
         private readonly IProductReadApiClient readApiClient;
+        private readonly IProductWriteApiClient writeApiClient;
 
-        public ProductRepository(IProductReadApiClient readApiClient)
+        public ProductRepository(
+            IProductReadApiClient readApiClient, 
+            IProductWriteApiClient writeApiClient)
         {
             this.readApiClient = readApiClient;
+            this.writeApiClient = writeApiClient;
         }
 
         public async Task<IEnumerable<ProductModel>> Get()
@@ -24,6 +28,11 @@
         public async Task<ProductModel> Get(long id)
         {
             return await this.readApiClient.GetProductById(id);
+        }
+
+        public async Task Create(ProductWriteModel product)
+        {
+            await this.writeApiClient.Create(product);
         }
     }
 }

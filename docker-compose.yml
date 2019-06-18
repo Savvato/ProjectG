@@ -7,11 +7,21 @@ services:
     build:
       context: src/
       dockerfile: ProjectG.ClientService/ProjectG.ClientService.Web/Dockerfile
+    depends_on: 
+      - order-write-api
+      - order-read-api
+      - customer-write-api
+      - customer-read-api
+      - product-read-api
+      - product-write-api
+      - basket-api
     environment: 
       ASPNETCORE_ENVIRONMENT: Development
       CustomerApi__GraphQLEndpoint: "http://customer-read-api:80/graphql/customer"
+      CustomerApi__BaseWriteApiUrl: "http://customer-write-api:80/"
       BasketApi__GraphQLEndpoint: "http://basket-api:80/graphql/basket"
       ProductApi__GraphQLEndpoint: "http://product-read-api:80/graphql/product"
+      ProductApi__BaseWriteApiUrl: "http://product-write-api:80/"
 
   order-write-api:
     ports:

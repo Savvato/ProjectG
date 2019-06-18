@@ -10,19 +10,11 @@
 
 
   <ItemGroup>
+    <PackageReference Include="Bogus" Version="27.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.7.9" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <Folder Include="Areas\Customer\Data\" />
-    <Folder Include="Areas\Customer\Models\" />
-    <Folder Include="Areas\Product\Data\" />
-    <Folder Include="Areas\Product\Models\" />
-    <Folder Include="Areas\Product\Views\" />
   </ItemGroup>
 
 

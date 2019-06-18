@@ -1,1 +1,10 @@
-﻿
+﻿@model ProductModel
+
+<div class="card" style="margin-top: 5px; margin-bottom: 5px;">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Name</h5>
+        <p class="card-text">@Model.Description</p>
+        <p class="card-text">Count: @Model.Count</p>
+        <p class="card-text">Price: @Model.Price</p>
+    </div>
+</div>
