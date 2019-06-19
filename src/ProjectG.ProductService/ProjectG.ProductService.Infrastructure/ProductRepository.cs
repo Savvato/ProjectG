@@ -5,10 +5,10 @@
 
     using Microsoft.EntityFrameworkCore;
 
-    using ProjectG.ProductService.Core.Models;
+    using Core.Models;
     using ProjectG.ProductService.Infrastructure.Cache.Interfaces;
-    using ProjectG.ProductService.Infrastructure.Db;
-    using ProjectG.ProductService.Infrastructure.Interfaces;
+    using Db;
+    using Interfaces;
 
     public class ProductRepository : IProductRepository
     {
@@ -33,7 +33,7 @@
             if (cachedProduct == null)
             {
                 cachedProduct = await this.dbContext.Products.FirstOrDefaultAsync(product => product.Id == id);
-                await cache.Set(cachedProduct);
+                await this.cache.Set(cachedProduct);
             }
 
             return cachedProduct;
@@ -41,8 +41,16 @@
 
         public async Task Add(Product product)
         {
-            await dbContext.Products.AddAsync(product);
-            await dbContext.SaveChangesAsync();
+            await this.dbContext.Products.AddAsync(product);
+            await this.dbContext.SaveChangesAsync();
+
+            await this.cache.Set(product);
+        }
+
+        public async Task Update(Product product)
+        {
+            this.dbContext.Products.Update(product);
+            await this.dbContext.SaveChangesAsync();
 
             await this.cache.Set(product);
         }

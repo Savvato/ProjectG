@@ -12,5 +12,7 @@
         Task<Product> Get(long id);
 
         Task Add(Product product);
+
+        Task Update(Product product);
     }
 }

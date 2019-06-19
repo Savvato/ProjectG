@@ -13,6 +13,6 @@
 
         Task Create(ProductWriteModel product);
 
-        Task Edit(long id, ProductWriteModel product);
+        Task Edit(ProductModel product);
     }
 }

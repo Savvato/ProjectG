@@ -1,6 +1,7 @@
 ﻿@model ProductModel
 
-<form method="post" asp-area="Product" asp-controller="Home" asp-action="Edit" asp-route-id="@Model.Id">
+<form method="post" asp-area="Product" asp-controller="Home" asp-action="Edit">
+    <input type="hidden" asp-for="Id" />
     <div class="form-group">
         <label asp-for="Name">Email address</label>
         <input type="text" asp-for="Name" class="form-control">
