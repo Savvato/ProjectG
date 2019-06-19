@@ -19,6 +19,8 @@
     using ProjectG.BasketService.Infrastructure;
     using ProjectG.BasketService.Infrastructure.Db;
     using ProjectG.BasketService.Infrastructure.Interfaces;
+    using ProjectG.BasketService.Infrastructure.ProductApi;
+    using ProjectG.BasketService.Infrastructure.ProductApi.Interfaces;
     using ProjectG.Core;
 
     public class Startup
@@ -48,7 +50,11 @@
                     });
             });
 
+            services.AddScoped<IProductReadApiClient, ProductReadApiClient>();
+
             services.AddScoped<IBasketRepository, BasketRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+
             services.AddScoped<ICommandHandler<BasketPositionCreationModel>, CreateBasketPositionCommand>();
 
             services.AddScoped<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));

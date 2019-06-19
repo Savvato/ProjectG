@@ -25,11 +25,21 @@ namespace ProjectG.BasketService.Infrastructure.Db.Migrations
 
                 b.Property<float>("Price");
 
+                b.Property<string>("ProductDescription")
+                    .HasColumnType("text");
+
                 b.Property<long>("ProductId");
+
+                b.Property<string>("ProductName")
+                    .IsRequired()
+                    .HasColumnType("varchar(255)");
 
                 b.Property<int>("Quantity");
 
                 b.HasKey("Id");
+
+                b.HasIndex("CustomerId", "ProductId")
+                    .IsUnique();
 
                 b.ToTable("BasketPositions");
             });

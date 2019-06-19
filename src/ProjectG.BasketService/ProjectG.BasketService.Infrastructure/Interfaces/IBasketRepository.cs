@@ -15,5 +15,7 @@
         Task<IEnumerable<BasketPosition>> GetByCustomerId(long customerId);
 
         Task Add(BasketPosition basketPosition);
+
+        Task<bool> Exists(BasketPosition basketPosition);
     }
 }

@@ -110,6 +110,7 @@ services:
     environment: 
       ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__DefaultConnection: "Host=basket-db-postgresql;Port=5436;Username=postgres;Password=basket_password;Database=basket_db"
+      ProductApi__GraphQLEndpoint: "http://product-read-api:80/graphql/product"
 
   product-redis:
     image: 'bitnami/redis:latest'
