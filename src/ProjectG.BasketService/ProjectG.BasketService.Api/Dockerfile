@@ -10,15 +10,11 @@ COPY ["ProjectG.BasketService/ProjectG.BasketService.Core/ProjectG.BasketService
 COPY ["ProjectG.BasketService/ProjectG.BasketService.Infrastructure/ProjectG.BasketService.Infrastructure.csproj", "ProjectG.BasketService/ProjectG.BasketService.Infrastructure/"]
 COPY ["ProjectG.BasketService/ProjectG.BasketService.Infrastructure.ProductApi/ProjectG.BasketService.Infrastructure.ProductApi.csproj", "ProjectG.BasketService/ProjectG.BasketService.Infrastructure.ProductApi/"]
 COPY ["ProjectG.Core/ProjectG.Core.csproj", "ProjectG.Core/"]
-RUN dotnet restore "ProjectG.BasketService/ProjectG.BasketService.Api/ProjectG.BasketService.Api.csproj"
 COPY . .
 WORKDIR "/src/ProjectG.BasketService/ProjectG.BasketService.Api"
-RUN dotnet build "ProjectG.BasketService.Api.csproj" -c Release -o /app
-
-FROM build AS publish
 RUN dotnet publish "ProjectG.BasketService.Api.csproj" -c Release -o /app
 
 FROM base AS final
 WORKDIR /app
-COPY --from=publish /app .
+COPY --from=build /app .
 ENTRYPOINT ["dotnet", "ProjectG.BasketService.Api.dll"]

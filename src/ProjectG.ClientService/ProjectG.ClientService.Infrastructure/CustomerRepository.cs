@@ -5,7 +5,6 @@
     using System.Threading.Tasks;
 
     using ProjectG.ClientService.Infrastructure.BasketApi.DTO;
-    using ProjectG.ClientService.Infrastructure.BasketApi.Interfaces;
     using ProjectG.ClientService.Infrastructure.CustomerApi.DTO;
     using ProjectG.ClientService.Infrastructure.CustomerApi.Interfaces;
     using ProjectG.ClientService.Infrastructure.DTO;
@@ -13,18 +12,19 @@
 
     public class CustomerRepository : ICustomerRepository
     {
+        private readonly IBasketRepository basketRepository;
+
         private readonly ICustomerReadApiClient customerReadApiClient;
         private readonly ICustomerWriteApiClient customerWriteApiClient;
-        private readonly IBasketGraphQLClient basketGraphQLClient;
 
         public CustomerRepository(
             ICustomerReadApiClient customerReadApiClient, 
             ICustomerWriteApiClient customerWriteApiClient, 
-            IBasketGraphQLClient basketGraphQLClient)
+            IBasketRepository basketRepository)
         {
             this.customerReadApiClient = customerReadApiClient;
             this.customerWriteApiClient = customerWriteApiClient;
-            this.basketGraphQLClient = basketGraphQLClient;
+            this.basketRepository = basketRepository;
         }
 
         public async Task<IEnumerable<CustomerModel>> Get()
@@ -38,7 +38,7 @@
             IEnumerable<BasketPositionModel> basket = null;
 
             async Task LoadCustomer() => customerModel = await this.customerReadApiClient.GetCustomerById(customerId);
-            async Task LoadBasket() => basket = await this.basketGraphQLClient.GetCustomerBasket(customerId);
+            async Task LoadBasket() => basket = await this.basketRepository.GetCustomerBasket(customerId);
 
             await Task.WhenAll(LoadCustomer(), LoadBasket());
 

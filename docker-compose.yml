@@ -20,6 +20,7 @@ services:
       CustomerApi__GraphQLEndpoint: "http://customer-read-api:80/graphql/customer"
       CustomerApi__BaseWriteApiUrl: "http://customer-write-api:80/"
       BasketApi__GraphQLEndpoint: "http://basket-api:80/graphql/basket"
+      BasketApi__BaseApiUrl: "http://basket-api:80/"
       ProductApi__GraphQLEndpoint: "http://product-read-api:80/graphql/product"
       ProductApi__BaseWriteApiUrl: "http://product-write-api:80/"
 

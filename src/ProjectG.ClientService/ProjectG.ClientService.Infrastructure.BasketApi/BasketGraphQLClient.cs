@@ -37,6 +37,8 @@
                             id
                             customerId
                             productId
+                            productName
+                            productDescription
                             quantity
                             price
                         }

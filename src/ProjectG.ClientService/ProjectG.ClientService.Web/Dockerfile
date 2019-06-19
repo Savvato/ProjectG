@@ -9,13 +9,12 @@ COPY ["ProjectG.ClientService/ProjectG.ClientService.Web/ProjectG.ClientService.
 COPY ["ProjectG.ClientService/ProjectG.ClientService.Infrastructure.CustomerApi/ProjectG.ClientService.Infrastructure.CustomerApi.csproj", "ProjectG.ClientService/ProjectG.ClientService.Infrastructure.CustomerApi/"]
 COPY ["ProjectG.ClientService/ProjectG.ClientService.Infrastructure.BasketApi/ProjectG.ClientService.Infrastructure.BasketApi.csproj", "ProjectG.ClientService/ProjectG.ClientService.Infrastructure.BasketApi/"]
 COPY ["ProjectG.ClientService/ProjectG.ClientService.Infrastructure/ProjectG.ClientService.Infrastructure.csproj", "ProjectG.ClientService/ProjectG.ClientService.Infrastructure/"]
+COPY ["ProjectG.ClientService/ProjectG.ClientService.Infrastructure.ProductApi/ProjectG.ClientService.Infrastructure.ProductApi.csproj", "ProjectG.ClientService/ProjectG.ClientService.Infrastructure.ProductApi/"]
 COPY . .
 WORKDIR "/src/ProjectG.ClientService/ProjectG.ClientService.Web"
-
-FROM build AS publish
 RUN dotnet publish "ProjectG.ClientService.Web.csproj" -c Release -o /app
 
 FROM base AS final
 WORKDIR /app
-COPY --from=publish /app .
+COPY --from=build /app .
 ENTRYPOINT ["dotnet", "ProjectG.ClientService.Web.dll"]
