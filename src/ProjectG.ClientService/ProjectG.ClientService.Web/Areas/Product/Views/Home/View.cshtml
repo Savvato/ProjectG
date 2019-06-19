@@ -1,10 +1,21 @@
 ﻿@model ProductModel
 
-<div class="card" style="margin-top: 5px; margin-bottom: 5px;">
-    <div class="card-body">
-        <h5 class="card-title">@Model.Name</h5>
-        <p class="card-text">@Model.Description</p>
-        <p class="card-text">Count: @Model.Count</p>
-        <p class="card-text">Price: @Model.Price</p>
+<form method="post" asp-area="Product" asp-controller="Home" asp-action="Edit" asp-route-id="@Model.Id">
+    <div class="form-group">
+        <label asp-for="Name">Email address</label>
+        <input type="text" asp-for="Name" class="form-control">
     </div>
-</div>
+    <div class="form-group">
+        <label asp-for="Description">Email address</label>
+        <input type="text" asp-for="Description" class="form-control">
+    </div>
+    <div class="form-group">
+        <label asp-for="Count">Email address</label>
+        <input type="number" asp-for="Count" class="form-control">
+    </div>
+    <div class="form-group">
+        <label asp-for="Price">Email address</label>
+        <input type="number" asp-for="Price" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

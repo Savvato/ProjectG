@@ -35,6 +35,13 @@
             return this.View(product);
         }
 
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> Edit([FromRoute] long id, [FromForm] ProductWriteModel productWriteModel)
+        {
+            await this.productRepository.Edit(id, productWriteModel);
+            return this.RedirectToAction("View", new {id = id});
+        }
+
         [HttpPost]
         public async Task<IActionResult> Generate([FromForm] int count)
         {

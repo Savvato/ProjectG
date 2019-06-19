@@ -34,5 +34,10 @@
         {
             await this.writeApiClient.Create(product);
         }
+
+        public Task Edit(long id, ProductWriteModel product)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

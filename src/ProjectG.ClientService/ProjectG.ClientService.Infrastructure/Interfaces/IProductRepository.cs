@@ -12,5 +12,7 @@
         Task<ProductModel> Get(long id);
 
         Task Create(ProductWriteModel product);
+
+        Task Edit(long id, ProductWriteModel product);
     }
 }
