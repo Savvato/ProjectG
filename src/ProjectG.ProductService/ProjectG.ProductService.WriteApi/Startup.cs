@@ -12,6 +12,8 @@
     using ProjectG.ProductService.Infrastructure.Cache.Interfaces;
     using ProjectG.ProductService.Infrastructure.Db;
     using ProjectG.ProductService.Infrastructure.Interfaces;
+    using ProjectG.ProductService.Infrastructure.Kafka;
+    using ProjectG.ProductService.Infrastructure.Kafka.Interfaces;
     using ProjectG.ProductService.WriteApi.Commands;
     using ProjectG.ProductService.WriteApi.DTO;
 
@@ -51,6 +53,8 @@
                 options.InstanceName = "ProductsCache";
                 options.Configuration = this.configuration.GetConnectionString("Redis");
             });
+
+            services.AddScoped<IProducerService, ProducerService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

@@ -95,10 +95,15 @@ services:
     depends_on: 
       - product-db-postgresql
       - product-redis
+      - zookeeper
+      - kafka
     environment: 
       ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__DefaultConnection: "Host=product-db-postgresql;Port=5434;Username=postgres;Password=product_password;Database=product_db"
       ConnectionStrings__Redis: "product-redis:6379,password=products_password"
+      Kafka__Servers: "kafka:9092"
+      Kafka__Username: "kafka_user"
+      Kafka__Password: "kafka_password"
 
   basket-api:
     ports:
@@ -185,18 +190,24 @@ services:
   #     - RABBITMQ_PASSWORD=g_password
   #     - RABBITMQ_ERL_COOKIE=Jahsbjt5hjh
 
-  # zookeeper:
-  #   image: 'bitnami/zookeeper:latest'
-  #   ports:
-  #     - "2181:2181"
-  #   environment:
-  #     - ALLOW_ANONYMOUS_LOGIN=yes
-  # kafka:
-  #   image: 'bitnami/kafka:latest'
-  #   ports:
-  #     - "9092:9092"
-  #   environment:
-  #     - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
-  #     - ALLOW_PLAINTEXT_LISTENER=yes
-  #   depends_on: 
-  #     - zookeeper
+  zookeeper:
+    image: 'bitnami/zookeeper:latest'
+    ports:
+      - "2181:2181"
+    environment:
+      - ZOO_ENABLE_AUTH=yes
+      - ZOO_SERVER_USERS=zoo_kafka
+      - ZOO_SERVER_PASSWORDS=zoo_kafka_password
+  kafka:
+    image: 'bitnami/kafka:latest'
+    ports:
+      - "9092:9092"
+    environment:
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=no
+      - KAFKA_ZOOKEEPER_USER=zoo_kafka
+      - KAFKA_ZOOKEEPER_PASSWORD=zoo_kafka_password
+      - KAFKA_BROKER_USER=kafka_user
+      - KAFKA_BROKER_PASSWORD=kafka_password
+    depends_on: 
+      - zookeeper

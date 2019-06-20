@@ -70,7 +70,7 @@
                 .AddGraphTypes(ServiceLifetime.Scoped);
         }
 
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, IApplicationLifetime applicationLifetime)
         {
             using (IServiceScope serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {

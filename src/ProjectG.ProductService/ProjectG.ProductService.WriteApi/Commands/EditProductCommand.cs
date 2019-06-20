@@ -7,14 +7,21 @@
     using ProjectG.ProductService.WriteApi.DTO;
     using ProjectG.Core;
     using ProjectG.ProductService.Core.Models;
+    using ProjectG.ProductService.Infrastructure.Kafka.Interfaces;
 
     public class EditProductCommand : ICommandHandler<ProductEditModel>
     {
-        private readonly IProductRepository productRepository;
+        private const string ProductUpdatesTopicName = "product-updates-topic";
 
-        public EditProductCommand(IProductRepository productRepository)
+        private readonly IProductRepository productRepository;
+        private readonly IProducerService producerService;
+
+        public EditProductCommand(
+            IProductRepository productRepository, 
+            IProducerService producerService)
         {
             this.productRepository = productRepository;
+            this.producerService = producerService;
         }
 
         public async Task Execute(ProductEditModel commandData)
@@ -32,6 +39,7 @@
             product.Price = commandData.Price;
 
             await this.productRepository.Update(product);
+            await this.producerService.Produce(ProductUpdatesTopicName, product);
         }
     }
 }
