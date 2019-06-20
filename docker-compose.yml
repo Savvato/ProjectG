@@ -113,10 +113,15 @@ services:
       dockerfile: ProjectG.BasketService/ProjectG.BasketService.Api/Dockerfile
     depends_on: 
       - basket-db-postgresql
+      - zookeeper
+      - kafka
     environment: 
       ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__DefaultConnection: "Host=basket-db-postgresql;Port=5436;Username=postgres;Password=basket_password;Database=basket_db"
       ProductApi__GraphQLEndpoint: "http://product-read-api:80/graphql/product"
+      Kafka__Servers: "kafka:9092"
+      Kafka__Username: "kafka_user"
+      Kafka__Password: "kafka_password"
 
   product-redis:
     image: 'bitnami/redis:latest'
@@ -204,7 +209,7 @@ services:
       - "9092:9092"
     environment:
       - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
-      - ALLOW_PLAINTEXT_LISTENER=no
+      - ALLOW_PLAINTEXT_LISTENER=yes
       - KAFKA_ZOOKEEPER_USER=zoo_kafka
       - KAFKA_ZOOKEEPER_PASSWORD=zoo_kafka_password
       - KAFKA_BROKER_USER=kafka_user

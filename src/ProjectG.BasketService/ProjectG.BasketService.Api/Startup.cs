@@ -11,6 +11,7 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
 
+    using ProjectG.BasketService.Api.Background;
     using ProjectG.BasketService.Api.Commands;
     using ProjectG.BasketService.Api.DTO;
     using ProjectG.BasketService.Api.GraphQL.Queries;
@@ -68,10 +69,24 @@
                     options.ExposeExceptions = this.hostingEnvironment.IsDevelopment();
                 })
                 .AddGraphTypes(ServiceLifetime.Scoped);
+
+            services.AddHostedService<ProductUpdatesListener>();
+            services.AddTransient<ProductUpdatesListener>();
         }
 
         public void Configure(IApplicationBuilder app, IApplicationLifetime applicationLifetime)
         {
+            applicationLifetime.ApplicationStarted.Register(() =>
+            {
+                ProductUpdatesListener productUpdatesListener = app.ApplicationServices.GetRequiredService<ProductUpdatesListener>();
+                productUpdatesListener.StartAsync(applicationLifetime.ApplicationStopping);
+            });
+            applicationLifetime.ApplicationStopping.Register(async () =>
+            {
+                ProductUpdatesListener productUpdatesListener = app.ApplicationServices.GetRequiredService<ProductUpdatesListener>();
+                await productUpdatesListener.StopAsync(applicationLifetime.ApplicationStopping);
+            });
+
             using (IServiceScope serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
                 BasketDbContext dbContext = serviceScope.ServiceProvider.GetRequiredService<BasketDbContext>();

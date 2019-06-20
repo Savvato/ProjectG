@@ -7,6 +7,8 @@
 
     using Microsoft.Extensions.Configuration;
 
+    using Newtonsoft.Json;
+
     using ProjectG.ProductService.Infrastructure.Kafka.Interfaces;
 
     public class ProducerService : IProducerService
@@ -27,13 +29,14 @@
                 SaslPassword = configuration["Kafka:Password"],
             };
 
-            using (IProducer<Null, TMessage> producer = new ProducerBuilder<Null, TMessage>(config).Build())
+            using (IProducer<Null, string> producer = new ProducerBuilder<Null, string>(config).Build())
             {
+                string serializedModel = JsonConvert.SerializeObject(messageModel);
                 await producer.ProduceAsync(
                     topic: topic, 
-                    message: new Message<Null, TMessage>
+                    message: new Message<Null, string>
                     {
-                        Value = messageModel
+                        Value = serializedModel
                     });
                 producer.Flush(TimeSpan.FromSeconds(5));
             }
