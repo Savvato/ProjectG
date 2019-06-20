@@ -41,6 +41,7 @@
             });
 
             services.AddTransient<ICommandHandler<ProductCreationModel>, CreateProductCommand>();
+            services.AddTransient<ICommandHandler<ProductEditModel>, EditProductCommand>();
 
             services.AddScoped<IProductCache, ProductCache>();
             services.AddScoped<IProductRepository, ProductRepository>();

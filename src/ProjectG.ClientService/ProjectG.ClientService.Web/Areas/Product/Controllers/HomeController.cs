@@ -39,7 +39,7 @@
         public async Task<IActionResult> Edit([FromForm] ProductModel productWriteModel)
         {
             await this.productRepository.Edit(productWriteModel);
-            return this.RedirectToAction("View", new {id = id});
+            return this.RedirectToAction("View", new {id = productWriteModel.Id});
         }
 
         [HttpPost]

@@ -34,6 +34,15 @@
             response.EnsureSuccessStatusCode();
         }
 
+        public async Task Edit(ProductModel productModel)
+        {
+            HttpClient httpClient = this.CreateHttpClient();
+            StringContent content = new StringContent(JsonConvert.SerializeObject(productModel), Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await httpClient.PutAsync("/api/product", content);
+            response.EnsureSuccessStatusCode();
+        }
+
         private HttpClient CreateHttpClient()
         {
             HttpClient httpClient = this.httpClientFactory.CreateClient();

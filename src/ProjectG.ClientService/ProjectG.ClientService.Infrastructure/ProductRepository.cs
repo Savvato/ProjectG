@@ -37,7 +37,7 @@
 
         public async Task Edit(ProductModel product)
         {
-            throw new System.NotImplementedException();
+            await this.writeApiClient.Edit(product);
         }
     }
 }

@@ -7,5 +7,7 @@
     public interface IProductWriteApiClient
     {
         Task Create(ProductWriteModel productModel);
+
+        Task Edit(ProductModel productModel);
     }
 }
