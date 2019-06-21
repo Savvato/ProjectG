@@ -49,26 +49,27 @@
                         optionsBuilder.EnableRetryOnFailure();
                         optionsBuilder.CommandTimeout(180);
                     });
-            });
+            }, ServiceLifetime.Singleton);
 
-            services.AddScoped<IProductReadApiClient, ProductReadApiClient>();
+            services.AddSingleton<IProductReadApiClient, ProductReadApiClient>();
 
-            services.AddScoped<IBasketRepository, BasketRepository>();
-            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddSingleton<IBasketRepository, BasketRepository>();
+            services.AddSingleton<IProductRepository, ProductRepository>();
 
-            services.AddScoped<ICommandHandler<BasketPositionCreationModel>, CreateBasketPositionCommand>();
+            services.AddSingleton<ICommandHandler<BasketPositionCreationModel>, CreateBasketPositionCommand>();
+            services.AddSingleton<ICommandHandler<ProductUpdatedEventModel>, ProductUpdatedCommand>();
 
-            services.AddScoped<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));
+            services.AddSingleton<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));
 
-            services.AddScoped<BasketPositionType>();
-            services.AddScoped<BasketPositionQuery>();
-            services.AddScoped<BasketPositionSchema>();
+            services.AddSingleton<BasketPositionType>();
+            services.AddSingleton<BasketPositionQuery>();
+            services.AddSingleton<BasketPositionSchema>();
 
             services.AddGraphQL(options =>
                 {
                     options.ExposeExceptions = this.hostingEnvironment.IsDevelopment();
                 })
-                .AddGraphTypes(ServiceLifetime.Scoped);
+                .AddGraphTypes(ServiceLifetime.Singleton);
 
             services.AddHostedService<ProductUpdatesListener>();
             services.AddTransient<ProductUpdatesListener>();

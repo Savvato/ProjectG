@@ -46,5 +46,10 @@ namespace ProjectG.BasketService.Infrastructure
             return await this.dbContext.BasketPositions.AnyAsync(position =>
                 position.CustomerId == basketPosition.CustomerId && position.ProductId == basketPosition.ProductId);
         }
+
+        public async Task SaveChanges()
+        {
+            await this.dbContext.SaveChangesAsync();
+        }
     }
 }

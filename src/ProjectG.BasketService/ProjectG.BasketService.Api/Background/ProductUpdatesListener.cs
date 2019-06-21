@@ -10,19 +10,27 @@
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
 
+    using Newtonsoft.Json;
+
+    using ProjectG.BasketService.Api.DTO;
+    using ProjectG.Core;
+
     public class ProductUpdatesListener : BackgroundService
     {
         private const string ProductUpdatesTopicName = "product-updates-topic";
 
+        private readonly ICommandHandler<ProductUpdatedEventModel> productUpdatesHandler;
         private readonly IConfiguration configuration;
         private readonly ILogger<ProductUpdatesListener> logger;
 
         public ProductUpdatesListener(
             IConfiguration configuration, 
-            ILogger<ProductUpdatesListener> logger)
+            ILogger<ProductUpdatesListener> logger, 
+            ICommandHandler<ProductUpdatedEventModel> productUpdatesHandler)
         {
             this.configuration = configuration;
             this.logger = logger;
+            this.productUpdatesHandler = productUpdatesHandler;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -48,6 +56,7 @@
                     try
                     {
                         result = consumer.Consume(stoppingToken);
+                        consumer.Commit(result);
                     }
                     catch (ConsumeException exception)
                     {
@@ -56,10 +65,16 @@
 
                     if (result != null)
                     {
-                        logger.LogInformation(result.Value);
+                        ProductUpdatedEventModel eventModel = JsonConvert.DeserializeObject<ProductUpdatedEventModel>(result.Value);
+                        try
+                        {
+                            await this.productUpdatesHandler.Execute(eventModel);
+                        }
+                        catch (Exception exception)
+                        {
+                            this.logger.LogError(exception, "Exception during products updates handling");
+                        }
                     }
-
-                    await Task.Delay(TimeSpan.FromSeconds(1), stoppingToken);
                 }
             }
 

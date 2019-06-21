@@ -17,5 +17,7 @@
         Task Add(BasketPosition basketPosition);
 
         Task<bool> Exists(BasketPosition basketPosition);
+
+        Task SaveChanges();
     }
 }
