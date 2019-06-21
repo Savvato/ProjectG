@@ -72,22 +72,10 @@
                 .AddGraphTypes(ServiceLifetime.Singleton);
 
             services.AddHostedService<ProductUpdatesListener>();
-            services.AddTransient<ProductUpdatesListener>();
         }
 
         public void Configure(IApplicationBuilder app, IApplicationLifetime applicationLifetime)
         {
-            applicationLifetime.ApplicationStarted.Register(() =>
-            {
-                ProductUpdatesListener productUpdatesListener = app.ApplicationServices.GetRequiredService<ProductUpdatesListener>();
-                productUpdatesListener.StartAsync(applicationLifetime.ApplicationStopping);
-            });
-            applicationLifetime.ApplicationStopping.Register(async () =>
-            {
-                ProductUpdatesListener productUpdatesListener = app.ApplicationServices.GetRequiredService<ProductUpdatesListener>();
-                await productUpdatesListener.StopAsync(applicationLifetime.ApplicationStopping);
-            });
-
             using (IServiceScope serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
                 BasketDbContext dbContext = serviceScope.ServiceProvider.GetRequiredService<BasketDbContext>();
