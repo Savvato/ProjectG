@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\ProjectG.Core\ProjectG.Core.csproj" />
     <ProjectReference Include="..\ProjectG.BasketService.Infrastructure.Db\ProjectG.BasketService.Infrastructure.Db.csproj" />
+    <ProjectReference Include="..\ProjectG.BasketService.Infrastructure.Kafka\ProjectG.BasketService.Infrastructure.Kafka.csproj" />
     <ProjectReference Include="..\ProjectG.BasketService.Infrastructure.ProductApi\ProjectG.BasketService.Infrastructure.ProductApi.csproj" />
     <ProjectReference Include="..\ProjectG.BasketService.Infrastructure\ProjectG.BasketService.Infrastructure.csproj" />
   </ItemGroup>

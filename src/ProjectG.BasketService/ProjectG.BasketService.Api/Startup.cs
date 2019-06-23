@@ -4,6 +4,9 @@
     using global::GraphQL.Server;
     using global::GraphQL.Server.Ui.Playground;
 
+    using Infrastructure.Kafka;
+    using Infrastructure.Kafka.DTO;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
@@ -11,7 +14,6 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
 
-    using ProjectG.BasketService.Api.Background;
     using ProjectG.BasketService.Api.Commands;
     using ProjectG.BasketService.Api.DTO;
     using ProjectG.BasketService.Api.GraphQL.Queries;

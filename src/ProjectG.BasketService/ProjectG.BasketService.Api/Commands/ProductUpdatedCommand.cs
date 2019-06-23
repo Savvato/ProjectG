@@ -3,6 +3,8 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    using Infrastructure.Kafka.DTO;
+
     using Microsoft.EntityFrameworkCore;
 
     using ProjectG.BasketService.Api.DTO;

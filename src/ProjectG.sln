@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28917.181
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.705
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProjectG.ClientService", "ProjectG.ClientService", "{F4B4327A-96EA-4C86-A389-60BC1F7ECEB4}"
 EndProject
@@ -61,9 +61,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectG.ClientService.Infr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectG.ClientService.Infrastructure.ProductApi", "ProjectG.ClientService\ProjectG.ClientService.Infrastructure.ProductApi\ProjectG.ClientService.Infrastructure.ProductApi.csproj", "{B79AC1B0-D756-4825-9D4B-DFB294FC8139}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectG.BasketService.Infrastructure.ProductApi", "ProjectG.BasketService\ProjectG.BasketService.Infrastructure.ProductApi\ProjectG.BasketService.Infrastructure.ProductApi.csproj", "{2AEE593C-8F95-4DCA-9757-178F124DD570}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectG.BasketService.Infrastructure.ProductApi", "ProjectG.BasketService\ProjectG.BasketService.Infrastructure.ProductApi\ProjectG.BasketService.Infrastructure.ProductApi.csproj", "{2AEE593C-8F95-4DCA-9757-178F124DD570}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectG.ProductService.Infrastructure.Kafka", "ProjectG.ProductService\ProjectG.ProductService.Infrastructure.Kafka\ProjectG.ProductService.Infrastructure.Kafka.csproj", "{8CE71E0C-2108-4FBD-B6BB-FFC2A2B469E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectG.ProductService.Infrastructure.Kafka", "ProjectG.ProductService\ProjectG.ProductService.Infrastructure.Kafka\ProjectG.ProductService.Infrastructure.Kafka.csproj", "{8CE71E0C-2108-4FBD-B6BB-FFC2A2B469E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectG.BasketService.Infrastructure.Kafka", "ProjectG.BasketService\ProjectG.BasketService.Infrastructure.Kafka\ProjectG.BasketService.Infrastructure.Kafka.csproj", "{5491CF67-2234-4AEF-895B-2BBCBB40C386}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -387,6 +389,18 @@ Global
 		{8CE71E0C-2108-4FBD-B6BB-FFC2A2B469E7}.Release|x64.Build.0 = Release|Any CPU
 		{8CE71E0C-2108-4FBD-B6BB-FFC2A2B469E7}.Release|x86.ActiveCfg = Release|Any CPU
 		{8CE71E0C-2108-4FBD-B6BB-FFC2A2B469E7}.Release|x86.Build.0 = Release|Any CPU
+		{5491CF67-2234-4AEF-895B-2BBCBB40C386}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5491CF67-2234-4AEF-895B-2BBCBB40C386}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5491CF67-2234-4AEF-895B-2BBCBB40C386}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5491CF67-2234-4AEF-895B-2BBCBB40C386}.Debug|x64.Build.0 = Debug|Any CPU
+		{5491CF67-2234-4AEF-895B-2BBCBB40C386}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5491CF67-2234-4AEF-895B-2BBCBB40C386}.Debug|x86.Build.0 = Debug|Any CPU
+		{5491CF67-2234-4AEF-895B-2BBCBB40C386}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5491CF67-2234-4AEF-895B-2BBCBB40C386}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5491CF67-2234-4AEF-895B-2BBCBB40C386}.Release|x64.ActiveCfg = Release|Any CPU
+		{5491CF67-2234-4AEF-895B-2BBCBB40C386}.Release|x64.Build.0 = Release|Any CPU
+		{5491CF67-2234-4AEF-895B-2BBCBB40C386}.Release|x86.ActiveCfg = Release|Any CPU
+		{5491CF67-2234-4AEF-895B-2BBCBB40C386}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -417,6 +431,7 @@ Global
 		{B79AC1B0-D756-4825-9D4B-DFB294FC8139} = {F4B4327A-96EA-4C86-A389-60BC1F7ECEB4}
 		{2AEE593C-8F95-4DCA-9757-178F124DD570} = {ABFD8E12-4F5B-4E77-880E-386FBA066771}
 		{8CE71E0C-2108-4FBD-B6BB-FFC2A2B469E7} = {E6F72ABA-CE3A-498B-BF3A-2265699A94B2}
+		{5491CF67-2234-4AEF-895B-2BBCBB40C386} = {ABFD8E12-4F5B-4E77-880E-386FBA066771}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {92B0239F-F43E-41C1-81FE-072C85F95A3A}
