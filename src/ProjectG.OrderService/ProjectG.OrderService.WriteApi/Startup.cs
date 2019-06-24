@@ -11,7 +11,6 @@
     using ProjectG.OrderService.WriteApi.Commands;
     using ProjectG.OrderService.WriteApi.DTO;
 
-
     public class Startup
     {
         private readonly IConfiguration configuration;

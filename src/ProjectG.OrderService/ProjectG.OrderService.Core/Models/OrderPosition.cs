@@ -16,6 +16,12 @@
         [Required]
         public long ProductId { get; set; }
 
+        [Required, Column(TypeName = "varchar(255)")]
+        public string ProductName { get; set; }
+
+        [Column(TypeName = "text")]
+        public string ProductDescription { get; set; }
+
         [Required]
         public int Count { get; set; }
 

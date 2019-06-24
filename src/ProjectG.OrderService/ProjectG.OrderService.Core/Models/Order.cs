@@ -13,6 +13,12 @@
         [Required]
         public long CustomerId { get; set; }
 
+        [Required, Column(TypeName = "varchar(255)")]
+        public string FirstName { get; set; }
+
+        [Required, Column(TypeName = "varchar(255)")]
+        public string Surname { get; set; }
+
         [Required]
         public DateTime DateCreated { get; set; }
 

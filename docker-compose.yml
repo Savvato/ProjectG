@@ -186,14 +186,14 @@ services:
       - POSTGRESQL_PASSWORD=basket_password
       - POSTGRESQL_DATABASE=basket_db
 
-  # rabbitmq:
-  #   image: bitnami/rabbitmq:latest
-  #   ports:
-  #     - "15672:15672"
-  #   environment:
-  #     - RABBITMQ_USERNAME=g_user
-  #     - RABBITMQ_PASSWORD=g_password
-  #     - RABBITMQ_ERL_COOKIE=Jahsbjt5hjh
+  rabbitmq:
+    image: bitnami/rabbitmq:latest
+    ports:
+      - "5672:5672"
+    environment:
+      - RABBITMQ_USERNAME=g_user
+      - RABBITMQ_PASSWORD=g_password
+      - RABBITMQ_ERL_COOKIE=Jahsbjt5hjh
 
   zookeeper:
     image: 'bitnami/zookeeper:latest'
