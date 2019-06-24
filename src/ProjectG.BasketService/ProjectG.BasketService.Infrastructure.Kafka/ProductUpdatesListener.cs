@@ -79,7 +79,7 @@
                 }
             }
 
-            LoggerExtensions.LogInformation(this.logger, "ProductUpdatesListener has finished");
+            this.logger.LogInformation("ProductUpdatesListener has finished");
         }
     }
 }
