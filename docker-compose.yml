@@ -35,6 +35,9 @@ services:
     environment: 
       ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__DefaultConnection: "Host=order-db-postgresql-master;Port=5432;Username=postgres;Password=order_password;Database=order_db"
+      RabbitMQ__HostName: "rabbitmq"
+      RabbitMQ__UserName: "rabbit_user"
+      RabbitMQ__Password: "rabbit_password"
 
   order-read-api:
     ports:
@@ -191,8 +194,8 @@ services:
     ports:
       - "5672:5672"
     environment:
-      - RABBITMQ_USERNAME=g_user
-      - RABBITMQ_PASSWORD=g_password
+      - RABBITMQ_USERNAME=rabbit_user
+      - RABBITMQ_PASSWORD=rabbit_password
       - RABBITMQ_ERL_COOKIE=Jahsbjt5hjh
 
   zookeeper:

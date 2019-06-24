@@ -8,6 +8,8 @@
 
     using ProjectG.Core;
     using ProjectG.OrderService.Infrastructure.Db;
+    using ProjectG.OrderService.Infrastructure.RabbitMQ;
+    using ProjectG.OrderService.Infrastructure.RabbitMQ.Interfaces;
     using ProjectG.OrderService.WriteApi.Commands;
     using ProjectG.OrderService.WriteApi.DTO;
 
@@ -37,6 +39,7 @@
             });
 
             services.AddTransient<ICommandHandler<OrderCreationModel>, CreateOrderCommand>();
+            services.AddSingleton<IQueuePublisher, QueuePublisher>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
