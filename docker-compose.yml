@@ -59,6 +59,12 @@ services:
     build:
       context: src/
       dockerfile: ProjectG.OrderService/ProjectG.OrderService.OrderBuilder/Dockerfile
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 30s
     depends_on: 
       - rabbitmq
       - order-db-postgresql-master

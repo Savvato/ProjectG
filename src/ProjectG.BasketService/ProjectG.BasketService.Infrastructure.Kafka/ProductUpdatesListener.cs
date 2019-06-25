@@ -38,7 +38,7 @@
         {
             this.logger.LogInformation("ProductUpdatesListener has started");
 
-            ConsumerConfig config = new ConsumerConfig()
+            ConsumerConfig config = new ConsumerConfig
             {
                 GroupId = "basket-api-consumers",
                 BootstrapServers = this.configuration["Kafka:Servers"],
