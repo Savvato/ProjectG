@@ -32,9 +32,14 @@ services:
       dockerfile: ProjectG.OrderService/ProjectG.OrderService.WriteApi/Dockerfile
     depends_on:
       - order-db-postgresql-master
+      - zookeeper
+      - kafka
     environment: 
       ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__DefaultConnection: "Host=order-db-postgresql-master;Port=5432;Username=postgres;Password=order_password;Database=order_db"
+      Kafka__Servers: "kafka:9092"
+      Kafka__Username: "kafka_user"
+      Kafka__Password: "kafka_password"
 
   order-read-api:
     ports:
@@ -57,9 +62,16 @@ services:
       dockerfile: ProjectG.OrderService/ProjectG.OrderService.OrderBuilder/Dockerfile
     depends_on: 
       - order-db-postgresql-master
+      - zookeeper
+      - kafka
     environment: 
       ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__DefaultConnection: "Host=order-db-postgresql-master;Port=5432;Username=postgres;Password=order_password;Database=order_db"
+      Kafka__Servers: "kafka:9092"
+      Kafka__Username: "kafka_user"
+      Kafka__Password: "kafka_password"
+      BasketApi__GraphQLEndpoint: "http://basket-api:80/graphql/basket"
+      CustomerApi__GraphQLEndpoint: "http://customer-read-api:80/graphql/customer"
 
   customer-write-api:
     ports:

@@ -13,7 +13,7 @@
 
     public class ProductUpdatedCommand : ICommandHandler<ProductUpdatedEventModel>, ICapSubscribe
     {
-        public const string ProductUpdatesTopicName = "product.updates";
+        private const string ProductUpdatesTopicName = "product.updates";
 
         private readonly IBasketRepository basketRepository;
 

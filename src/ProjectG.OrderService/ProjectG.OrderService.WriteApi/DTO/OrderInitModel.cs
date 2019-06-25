@@ -2,7 +2,7 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    public class OrderCreationModel
+    public class OrderInitModel
     {
         [Required]
         public long CustomerId { get; set; }

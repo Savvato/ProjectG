@@ -8,8 +8,6 @@
 
     using ProjectG.Core;
     using ProjectG.OrderService.Infrastructure.Db;
-    using ProjectG.OrderService.Infrastructure.RabbitMQ;
-    using ProjectG.OrderService.Infrastructure.RabbitMQ.Interfaces;
     using ProjectG.OrderService.WriteApi.Commands;
     using ProjectG.OrderService.WriteApi.DTO;
 
@@ -38,8 +36,21 @@
                     });
             });
 
-            services.AddTransient<ICommandHandler<OrderCreationModel>, CreateOrderCommand>();
-            services.AddSingleton<IQueuePublisher, QueuePublisher>();
+            services.AddTransient<ICommandHandler<OrderInitModel>, InitializeOrderCreationCommand>();
+
+            services.AddCap(options =>
+            {
+                options.UsePostgreSql(this.configuration.GetConnectionString("DefaultConnection"));
+
+                options.UseKafka(kafka =>
+                {
+                    kafka.Servers = this.configuration["Kafka:Servers"];
+
+                    kafka.MainConfig.TryAdd("group.id", "order.write.api");
+                    kafka.MainConfig.TryAdd("sasl.username", this.configuration["Kafka:Username"]);
+                    kafka.MainConfig.TryAdd("sasl.password", this.configuration["Kafka:Password"]);
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

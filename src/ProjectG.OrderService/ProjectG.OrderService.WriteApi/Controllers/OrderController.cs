@@ -11,22 +11,22 @@
     [ApiController]
     public class OrderController : ControllerBase
     {
-        private readonly ICommandHandler<OrderCreationModel> createOrderCommand;
+        private readonly ICommandHandler<OrderInitModel> createOrderCommand;
 
-        public OrderController(ICommandHandler<OrderCreationModel> createOrderCommand)
+        public OrderController(ICommandHandler<OrderInitModel> createOrderCommand)
         {
             this.createOrderCommand = createOrderCommand;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] OrderCreationModel orderCreationModel)
+        public async Task<IActionResult> Post([FromBody] OrderInitModel orderInitModel)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.BadRequest(this.ModelState);
             }
 
-            await this.createOrderCommand.Execute(orderCreationModel);
+            await this.createOrderCommand.Execute(orderInitModel);
 
             return this.Ok();
         }

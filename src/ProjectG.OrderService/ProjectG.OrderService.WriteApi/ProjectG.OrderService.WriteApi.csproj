@@ -8,6 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="DotNetCore.CAP.Kafka" Version="2.5.1" />
+    <PackageReference Include="DotNetCore.CAP.PostgreSql" Version="2.5.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.4.10" />
@@ -17,7 +19,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\ProjectG.Core\ProjectG.Core.csproj" />
     <ProjectReference Include="..\ProjectG.OrderService.Infrastructure.Db\ProjectG.OrderService.Infrastructure.Db.csproj" />
-    <ProjectReference Include="..\ProjectG.OrderService.Infrastructure.RabbitMQ\ProjectG.OrderService.Infrastructure.RabbitMQ.csproj" />
   </ItemGroup>
 
 </Project>
