@@ -1,4 +1,4 @@
-﻿namespace ProjectG.BasketService.Infrastructure.Kafka.DTO
+﻿namespace ProjectG.BasketService.Api.DTO
 {
     public class ProductUpdatedEventModel
     {

@@ -3,7 +3,7 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using Infrastructure.Kafka.DTO;
+    using DotNetCore.CAP;
 
     using Microsoft.EntityFrameworkCore;
 
@@ -11,8 +11,10 @@
     using ProjectG.BasketService.Infrastructure.Interfaces;
     using ProjectG.Core;
 
-    public class ProductUpdatedCommand : ICommandHandler<ProductUpdatedEventModel>
+    public class ProductUpdatedCommand : ICommandHandler<ProductUpdatedEventModel>, ICapSubscribe
     {
+        public const string ProductUpdatesTopicName = "product.updates";
+
         private readonly IBasketRepository basketRepository;
 
         public ProductUpdatedCommand(IBasketRepository basketRepository)
@@ -20,6 +22,7 @@
             this.basketRepository = basketRepository;
         }
 
+        [CapSubscribe(ProductUpdatesTopicName)]
         public async Task Execute(ProductUpdatedEventModel commandData)
         {
             await this.basketRepository.Get()

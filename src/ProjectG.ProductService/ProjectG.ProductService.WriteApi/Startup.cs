@@ -12,8 +12,6 @@
     using ProjectG.ProductService.Infrastructure.Cache.Interfaces;
     using ProjectG.ProductService.Infrastructure.Db;
     using ProjectG.ProductService.Infrastructure.Interfaces;
-    using ProjectG.ProductService.Infrastructure.Kafka;
-    using ProjectG.ProductService.Infrastructure.Kafka.Interfaces;
     using ProjectG.ProductService.WriteApi.Commands;
     using ProjectG.ProductService.WriteApi.DTO;
 
@@ -54,7 +52,19 @@
                 options.Configuration = this.configuration.GetConnectionString("Redis");
             });
 
-            services.AddScoped<IProducerService, ProducerService>();
+            services.AddCap(options =>
+            {
+                options.UsePostgreSql(this.configuration.GetConnectionString("DefaultConnection"));
+
+                options.UseKafka(kafka =>
+                {
+                    kafka.Servers = this.configuration["Kafka:Servers"];
+
+                    kafka.MainConfig.TryAdd("group.id", "product.api");
+                    kafka.MainConfig.TryAdd("sasl.username", this.configuration["Kafka:Username"]);
+                    kafka.MainConfig.TryAdd("sasl.password", this.configuration["Kafka:Password"]);
+                }); 
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

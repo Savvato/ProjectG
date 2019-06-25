@@ -3,25 +3,26 @@
     using System.IO;
     using System.Threading.Tasks;
 
+    using DotNetCore.CAP;
+
     using ProjectG.ProductService.Infrastructure.Interfaces;
     using ProjectG.ProductService.WriteApi.DTO;
     using ProjectG.Core;
     using ProjectG.ProductService.Core.Models;
-    using ProjectG.ProductService.Infrastructure.Kafka.Interfaces;
 
     public class EditProductCommand : ICommandHandler<ProductEditModel>
     {
-        private const string ProductUpdatesTopicName = "product-updates-topic";
+        private const string ProductUpdatesTopicName = "product.updates";
 
         private readonly IProductRepository productRepository;
-        private readonly IProducerService producerService;
+        private readonly ICapPublisher eventBus;
 
         public EditProductCommand(
             IProductRepository productRepository, 
-            IProducerService producerService)
+            ICapPublisher eventBus)
         {
             this.productRepository = productRepository;
-            this.producerService = producerService;
+            this.eventBus = eventBus;
         }
 
         public async Task Execute(ProductEditModel commandData)
@@ -39,7 +40,8 @@
             product.Price = commandData.Price;
 
             await this.productRepository.Update(product);
-            await this.producerService.Produce(ProductUpdatesTopicName, product);
+
+            await this.eventBus.PublishAsync(name: ProductUpdatesTopicName, product);
         }
     }
 }

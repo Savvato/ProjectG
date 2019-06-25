@@ -32,13 +32,9 @@ services:
       dockerfile: ProjectG.OrderService/ProjectG.OrderService.WriteApi/Dockerfile
     depends_on:
       - order-db-postgresql-master
-      - rabbitmq
     environment: 
       ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__DefaultConnection: "Host=order-db-postgresql-master;Port=5432;Username=postgres;Password=order_password;Database=order_db"
-      RabbitMQ__HostName: "rabbitmq"
-      RabbitMQ__UserName: "rabbit_user"
-      RabbitMQ__Password: "rabbit_password"
 
   order-read-api:
     ports:
@@ -59,21 +55,11 @@ services:
     build:
       context: src/
       dockerfile: ProjectG.OrderService/ProjectG.OrderService.OrderBuilder/Dockerfile
-    deploy:
-      restart_policy:
-        condition: on-failure
-        delay: 5s
-        max_attempts: 3
-        window: 30s
     depends_on: 
-      - rabbitmq
       - order-db-postgresql-master
     environment: 
       ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__DefaultConnection: "Host=order-db-postgresql-master;Port=5432;Username=postgres;Password=order_password;Database=order_db"
-      RabbitMQ__HostName: "rabbitmq"
-      RabbitMQ__UserName: "rabbit_user"
-      RabbitMQ__Password: "rabbit_password"
 
   customer-write-api:
     ports:
@@ -214,15 +200,6 @@ services:
       - POSTGRESQL_PORT_NUMBER=5436
       - POSTGRESQL_PASSWORD=basket_password
       - POSTGRESQL_DATABASE=basket_db
-
-  rabbitmq:
-    image: bitnami/rabbitmq:latest
-    ports:
-      - "5672:5672"
-      - "15672:15672"
-    environment:
-      - RABBITMQ_USERNAME=rabbit_user
-      - RABBITMQ_PASSWORD=rabbit_password
 
   zookeeper:
     image: 'bitnami/zookeeper:latest'

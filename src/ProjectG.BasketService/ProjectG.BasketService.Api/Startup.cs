@@ -4,9 +4,6 @@
     using global::GraphQL.Server;
     using global::GraphQL.Server.Ui.Playground;
 
-    using Infrastructure.Kafka;
-    using Infrastructure.Kafka.DTO;
-
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
@@ -73,7 +70,19 @@
                 })
                 .AddGraphTypes(ServiceLifetime.Singleton);
 
-            services.AddHostedService<ProductUpdatesListener>();
+            services.AddCap(options =>
+            {
+                options.UsePostgreSql(this.configuration.GetConnectionString("DefaultConnection"));
+
+                options.UseKafka(kafka =>
+                {
+                    kafka.Servers = this.configuration["Kafka:Servers"];
+
+                    kafka.MainConfig.TryAdd("group.id", "basket.api");
+                    kafka.MainConfig.TryAdd("sasl.username", this.configuration["Kafka:Username"]);
+                    kafka.MainConfig.TryAdd("sasl.password", this.configuration["Kafka:Password"]);
+                });
+            });
         }
 
         public void Configure(IApplicationBuilder app, IApplicationLifetime applicationLifetime)
