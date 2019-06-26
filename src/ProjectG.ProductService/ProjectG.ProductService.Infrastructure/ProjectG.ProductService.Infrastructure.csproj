@@ -8,6 +8,7 @@
     <ProjectReference Include="..\ProjectG.ProductService.Core\ProjectG.ProductService.Core.csproj" />
     <ProjectReference Include="..\ProjectG.ProductService.Infrastructure.Cache\ProjectG.ProductService.Infrastructure.Cache.csproj" />
     <ProjectReference Include="..\ProjectG.ProductService.Infrastructure.Db\ProjectG.ProductService.Infrastructure.Db.csproj" />
+    <ProjectReference Include="..\ProjectG.ProductService.Infrastructure.OrderApi\ProjectG.ProductService.Infrastructure.OrderApi.csproj" />
   </ItemGroup>
 
 </Project>

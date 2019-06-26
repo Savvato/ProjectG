@@ -47,6 +47,12 @@ namespace ProjectG.BasketService.Infrastructure
                 position.CustomerId == basketPosition.CustomerId && position.ProductId == basketPosition.ProductId);
         }
 
+        public async Task RemoveCustomerBasket(long customerId)
+        {
+            this.dbContext.BasketPositions.RemoveRange(this.dbContext.BasketPositions.Where(position => position.CustomerId == customerId));
+            await this.dbContext.SaveChangesAsync();
+        }
+
         public async Task SaveChanges()
         {
             await this.dbContext.SaveChangesAsync();

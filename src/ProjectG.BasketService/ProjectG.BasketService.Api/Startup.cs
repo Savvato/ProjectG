@@ -57,6 +57,7 @@
 
             services.AddSingleton<ICommandHandler<BasketPositionCreationModel>, CreateBasketPositionCommand>();
             services.AddSingleton<ICommandHandler<ProductUpdatedEventModel>, ProductUpdatedCommand>();
+            services.AddSingleton<ICommandHandler<OrderCreatedEventModel>, OrderCreatedCommand>();
 
             services.AddSingleton<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));
 

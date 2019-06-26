@@ -12,6 +12,8 @@
     using ProjectG.ProductService.Infrastructure.Cache.Interfaces;
     using ProjectG.ProductService.Infrastructure.Db;
     using ProjectG.ProductService.Infrastructure.Interfaces;
+    using ProjectG.ProductService.Infrastructure.OrderApi;
+    using ProjectG.ProductService.Infrastructure.OrderApi.Interfaces;
     using ProjectG.ProductService.WriteApi.Commands;
     using ProjectG.ProductService.WriteApi.DTO;
 
@@ -28,6 +30,8 @@
         {
             services.AddMvc();
 
+            services.AddScoped<IOrderReadApiClient, OrderReadApiClient>();
+
             services.AddDbContext<ProductDbContext>(options =>
             {
                 options.UseNpgsql(
@@ -42,9 +46,11 @@
 
             services.AddTransient<ICommandHandler<ProductCreationModel>, CreateProductCommand>();
             services.AddTransient<ICommandHandler<ProductEditModel>, EditProductCommand>();
+            services.AddTransient<ICommandHandler<OrderCreatedEventModel>, OrderCreatedCommand>();
 
             services.AddScoped<IProductCache, ProductCache>();
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
 
             services.AddDistributedRedisCache(options =>
             {

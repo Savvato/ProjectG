@@ -18,6 +18,8 @@
 
         Task<bool> Exists(BasketPosition basketPosition);
 
+        Task RemoveCustomerBasket(long customerId);
+
         Task SaveChanges();
     }
 }

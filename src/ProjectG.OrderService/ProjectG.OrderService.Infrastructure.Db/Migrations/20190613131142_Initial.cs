@@ -10,7 +10,7 @@ namespace ProjectG.OrderService.Infrastructure.Db.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterDatabase()
-                .Annotation("Npgsql:Enum:order_status", "created,verified,waiting_for_payment,paid,sent");
+                .Annotation("Npgsql:Enum:order_status", "created,waiting_for_payment,paid,sent");
 
             migrationBuilder.CreateTable(
                 name: "Orders",

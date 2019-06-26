@@ -126,6 +126,7 @@ services:
       ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__DefaultConnection: "Host=product-db-postgresql;Port=5434;Username=postgres;Password=product_password;Database=product_db"
       ConnectionStrings__Redis: "product-redis:6379,password=products_password"
+      OrderApi__GraphQLEndpoint: "http://order-read-api:80/graphql/order"
       Kafka__Servers: "kafka:9092"
       Kafka__Username: "kafka_user"
       Kafka__Password: "kafka_password"
