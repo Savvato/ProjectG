@@ -16,14 +16,14 @@
 
     public class ProductReadApiClient : IProductReadApiClient
     {
-        private readonly GraphQLClient graphQLClient;
+        private readonly GraphQLClientOptions options;
 
         public ProductReadApiClient(IConfiguration configuration)
         {
-            this.graphQLClient = new GraphQLClient(new GraphQLClientOptions
+            this.options = new GraphQLClientOptions
             {
                 EndPoint = new Uri(configuration["ProductApi:GraphQLEndpoint"])
-            });
+            };
         }
 
         public async Task<ProductModel> GetProductById(long productId)
@@ -43,14 +43,17 @@
                 Variables = new { productId = productId }
             };
 
-            GraphQLResponse response = await this.graphQLClient.PostAsync(request);
-
-            if (response.Errors != null && response.Errors.Any())
+            using (GraphQLClient graphQLClient = new GraphQLClient(this.options))
             {
-                throw new HttpRequestException(response.Errors[0].Message);
-            }
+                GraphQLResponse response = await graphQLClient.PostAsync(request);
 
-            return response.GetDataFieldAs<ProductModel>("product");
+                if (response.Errors != null && response.Errors.Any())
+                {
+                    throw new HttpRequestException(response.Errors[0].Message);
+                }
+
+                return response.GetDataFieldAs<ProductModel>("product");
+            }
         }
     }
 }

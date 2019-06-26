@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using DotNetCore.CAP;
@@ -56,19 +57,15 @@
                 Status = OrderStatus.Created
             };
 
-            List<OrderPosition> orderPositions = new List<OrderPosition>();
-
-            foreach (BasketPositionModel basketPosition in basket)
-            {
-                orderPositions.Add(new OrderPosition
+            List<OrderPosition> orderPositions = basket.Select(basketPosition => new OrderPosition
                 {
                     ProductId = basketPosition.ProductId,
                     ProductName = basketPosition.ProductName,
                     ProductDescription = basketPosition.ProductDescription,
                     Count = basketPosition.Quantity,
                     Price = basketPosition.Price
-                });
-            }
+                })
+                .ToList();
 
             order.OrderPositions = orderPositions;
 

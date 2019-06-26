@@ -11,6 +11,8 @@
     using ProjectG.ClientService.Infrastructure.CustomerApi;
     using ProjectG.ClientService.Infrastructure.CustomerApi.Interfaces;
     using ProjectG.ClientService.Infrastructure.Interfaces;
+    using ProjectG.ClientService.Infrastructure.OrderApi;
+    using ProjectG.ClientService.Infrastructure.OrderApi.Interfaces;
     using ProjectG.ClientService.Infrastructure.ProductApi;
     using ProjectG.ClientService.Infrastructure.ProductApi.Interfaces;
 
@@ -34,10 +36,13 @@
             services.AddScoped<IBasketWriteApiClient, BasketWriteApiClient>();
             services.AddScoped<IProductReadApiClient, ProductReadApiClient>();
             services.AddScoped<IProductWriteApiClient, ProductWriteApiClient>();
+            services.AddScoped<IOrderReadApiClient, OrderReadApiClient>();
+            services.AddScoped<IOrderWriteApiClient, OrderWriteApiClient>();
 
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IBasketRepository, BasketRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
