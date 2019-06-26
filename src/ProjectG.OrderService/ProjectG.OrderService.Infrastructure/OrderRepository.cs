@@ -1,5 +1,6 @@
 ﻿namespace ProjectG.OrderService.Infrastructure
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -25,7 +26,12 @@
 
         public async Task<Order> Get(long orderId)
         {
-            return await this.dbContext.Orders.Include(order => order.OrderPositions).FirstOrDefaultAsync(order => order.Id == orderId);
+            return await this.Get().FirstOrDefaultAsync(order => order.Id == orderId);
+        }
+
+        public async Task<IEnumerable<Order>> GetByCustomerId(long customerId)
+        {
+            return await this.Get().Where(order => order.CustomerId == customerId).ToListAsync();
         }
 
         public async Task Create(Order order)

@@ -1,25 +1,44 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-
-namespace ProjectG.OrderService.ReadApi
+﻿namespace ProjectG.OrderService.ReadApi
 {
-    using Microsoft.EntityFrameworkCore;
+    using global::GraphQL.Server;
+    using global::GraphQL.Server.Ui.Playground;
 
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+
+    using ProjectG.OrderService.Infrastructure;
     using ProjectG.OrderService.Infrastructure.Db;
+    using ProjectG.OrderService.Infrastructure.Interfaces;
+    using ProjectG.OrderService.ReadApi.GraphQL.Queries;
+    using ProjectG.OrderService.ReadApi.GraphQL.Schemas;
+    using ProjectG.OrderService.ReadApi.GraphQL.Types;
 
     public class Startup
     {
         private readonly IConfiguration configuration;
+        private readonly IHostingEnvironment hostingEnvironment;
 
-        public Startup(IConfiguration configuration)
+        public Startup(
+            IConfiguration configuration, 
+            IHostingEnvironment hostingEnvironment)
         {
             this.configuration = configuration;
+            this.hostingEnvironment = hostingEnvironment;
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<OrderType>();
+            services.AddSingleton<OrderStatusType>();
+            services.AddSingleton<OrderPositionType>();
+            services.AddSingleton<OrderQuery>();
+            services.AddSingleton<OrderSchema>();
+
+            services.AddSingleton<IOrderRepository, OrderRepository>();
+
             services.AddMvc();
 
             services.AddDbContext<OrderDbContext>(options =>
@@ -32,7 +51,13 @@ namespace ProjectG.OrderService.ReadApi
                         optionsBuilder.EnableRetryOnFailure();
                         optionsBuilder.CommandTimeout(180);
                     });
-            });
+            }, ServiceLifetime.Singleton);
+
+            services.AddGraphQL(options =>
+                {
+                    options.ExposeExceptions = this.hostingEnvironment.IsDevelopment();
+                })
+                .AddGraphTypes(ServiceLifetime.Singleton);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,7 +74,15 @@ namespace ProjectG.OrderService.ReadApi
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvc();
+            app.UseGraphQL<OrderSchema>(path: "/graphql/order");
+
+            if (this.hostingEnvironment.IsDevelopment())
+            {
+                app.UseGraphQLPlayground(options: new GraphQLPlaygroundOptions
+                {
+                    GraphQLEndPoint = "/graphql/order"
+                });
+            }
         }
     }
 }

@@ -1,7 +1,14 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ProjectG.OrderService.Core\ProjectG.OrderService.Core.csproj" />
+    <ProjectReference Include="..\ProjectG.OrderService.Infrastructure.BasketApi\ProjectG.OrderService.Infrastructure.BasketApi.csproj" />
+    <ProjectReference Include="..\ProjectG.OrderService.Infrastructure.CustomerApi\ProjectG.OrderService.Infrastructure.CustomerApi.csproj" />
+    <ProjectReference Include="..\ProjectG.OrderService.Infrastructure.Db\ProjectG.OrderService.Infrastructure.Db.csproj" />
+  </ItemGroup>
 
 </Project>

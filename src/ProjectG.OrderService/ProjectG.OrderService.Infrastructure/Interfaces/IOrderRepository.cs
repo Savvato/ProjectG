@@ -1,5 +1,6 @@
 ﻿namespace ProjectG.OrderService.Infrastructure.Interfaces
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -10,6 +11,8 @@
         IQueryable<Order> Get();
 
         Task<Order> Get(long orderId);
+
+        Task<IEnumerable<Order>> GetByCustomerId(long customerId);
 
         Task Create(Order order);
 
