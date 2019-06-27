@@ -14,6 +14,8 @@
             this.Field(order => order.Surname, nullable: false);
             this.Field(order => order.DateCreated, nullable: false);
             this.Field<OrderStatusType>(nameof(Order.Status));
+            this.Field<ListGraphType<OrderPositionType>>(nameof(Order.OrderPositions),
+                resolve: context => context.Source.OrderPositions);
         }
     }
 }

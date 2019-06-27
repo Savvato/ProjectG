@@ -1,5 +1,6 @@
 ﻿namespace ProjectG.OrderService.ReadApi
 {
+    using global::GraphQL;
     using global::GraphQL.Server;
     using global::GraphQL.Server.Ui.Playground;
 
@@ -31,6 +32,7 @@
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));
             services.AddSingleton<OrderType>();
             services.AddSingleton<OrderStatusType>();
             services.AddSingleton<OrderPositionType>();
