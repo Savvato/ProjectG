@@ -24,7 +24,7 @@ services:
       ProductApi__GraphQLEndpoint: "http://product-read-api:80/graphql/product"
       ProductApi__BaseWriteApiUrl: "http://product-write-api:80/"
       OrderApi__GraphQLEndpoint: "http://order-read-api:80/graphql/order"
-      OrderApi__BaseApiUrl: "http://order-write-api:80/"
+      OrderApi__BaseWriteApiUrl: "http://order-write-api:80/"
 
   order-write-api:
     ports:
@@ -36,9 +36,11 @@ services:
       - order-db-postgresql-master
       - zookeeper
       - kafka
+      - cap-db-postgresql
     environment: 
       ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__DefaultConnection: "Host=order-db-postgresql-master;Port=5432;Username=postgres;Password=order_password;Database=order_db"
+      ConnectionStrings__CapConnection: "Host=cap-db-postgresql;Port=5437;Username=postgres;Password=cap_password;Database=cap_db"
       Kafka__Servers: "kafka:9092"
       Kafka__Username: "kafka_user"
       Kafka__Password: "kafka_password"
@@ -66,9 +68,11 @@ services:
       - order-db-postgresql-master
       - zookeeper
       - kafka
+      - cap-db-postgresql
     environment: 
       ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__DefaultConnection: "Host=order-db-postgresql-master;Port=5432;Username=postgres;Password=order_password;Database=order_db"
+      ConnectionStrings__CapConnection: "Host=cap-db-postgresql;Port=5437;Username=postgres;Password=cap_password;Database=cap_db"
       Kafka__Servers: "kafka:9092"
       Kafka__Username: "kafka_user"
       Kafka__Password: "kafka_password"
@@ -124,10 +128,12 @@ services:
       - product-redis
       - zookeeper
       - kafka
+      - cap-db-postgresql
     environment: 
       ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__DefaultConnection: "Host=product-db-postgresql;Port=5434;Username=postgres;Password=product_password;Database=product_db"
       ConnectionStrings__Redis: "product-redis:6379,password=products_password"
+      ConnectionStrings__CapConnection: "Host=cap-db-postgresql;Port=5437;Username=postgres;Password=cap_password;Database=cap_db"
       OrderApi__GraphQLEndpoint: "http://order-read-api:80/graphql/order"
       Kafka__Servers: "kafka:9092"
       Kafka__Username: "kafka_user"
@@ -143,9 +149,11 @@ services:
       - basket-db-postgresql
       - zookeeper
       - kafka
+      - cap-db-postgresql
     environment: 
       ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__DefaultConnection: "Host=basket-db-postgresql;Port=5436;Username=postgres;Password=basket_password;Database=basket_db"
+      ConnectionStrings__CapConnection: "Host=cap-db-postgresql;Port=5437;Username=postgres;Password=cap_password;Database=cap_db"
       ProductApi__GraphQLEndpoint: "http://product-read-api:80/graphql/product"
       Kafka__Servers: "kafka:9092"
       Kafka__Username: "kafka_user"
@@ -237,3 +245,12 @@ services:
       - KAFKA_BROKER_PASSWORD=kafka_password
     depends_on: 
       - zookeeper
+
+  cap-db-postgresql:
+    image: 'bitnami/postgresql:latest'
+    ports:
+      - "5437:5437"
+    environment:
+      - POSTGRESQL_PORT_NUMBER=5437
+      - POSTGRESQL_PASSWORD=cap_password
+      - POSTGRESQL_DATABASE=cap_db

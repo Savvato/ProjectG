@@ -16,11 +16,15 @@
             <div class="text-center">
                 <h4 class="display-4">Basket</h4>
             </div>
-            
-            <form class="form-inline" asp-route-id="@Model.Customer.Id" asp-action="GenerateBasket" asp-controller="Home" asp-area="Customer" method="post">
+
+            <form class="form-inline" asp-route-id="@Model.Customer.Id" asp-action="Generate" asp-controller="Basket" asp-area="Customer" method="post">
                 <label class="sr-only" for="count">Count: </label>
                 <input type="number" name="count" class="form-control mb-2 mr-sm-2" id="count">
                 <button type="submit" class="btn btn-primary mb-2">Generate basket positions</button>
+            </form>
+
+            <form class="form-inline" asp-route-id="@Model.Customer.Id" asp-action="Create" asp-controller="Order" asp-area="Customer" method="post">
+                <button type="submit" class="btn btn-primary mb-2">Place an order</button>
             </form>
 
             @foreach (BasketPositionModel basketPosition in Model.Basket)

@@ -59,31 +59,5 @@
 
             return this.RedirectToAction("Index");
         }
-
-        [HttpPost("{id}/basket/generate")]
-        public async Task<IActionResult> GenerateBasket([FromRoute] long id, [FromForm] int count)
-        {
-            CustomerDetailedModel customer = await this.customerRepository.Get(id);
-            IEnumerable<BasketPositionModel> basketPositions = customer.Basket;
-            IEnumerable<ProductModel> products = await this.productRepository.Get();
-
-            IEnumerable<ProductModel> availableProducts =
-                products.Where(product => basketPositions.All(position => position.ProductId != product.Id))
-                    .ToList();
-            int availableCount = availableProducts.Count() > count ? count : availableProducts.Count();
-            Faker faker = new Faker();
-            IEnumerable<ProductModel> productsForBasket = faker.PickRandom(availableProducts, availableCount);
-            IEnumerable<BasketPositionWriteModel> newBasketPositions = productsForBasket.Select(product => new BasketPositionWriteModel
-            {
-                CustomerId = id,
-                ProductId = product.Id,
-                Price = product.Price,
-                Quantity = faker.Random.Int(1, product.Count)
-            });
-
-            await Task.WhenAll(newBasketPositions.Select(this.basketRepository.Create));
-
-            return this.RedirectToAction("View", new { id = id });
-        }
     }
 }

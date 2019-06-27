@@ -9,6 +9,7 @@ COPY ["ProjectG.ProductService/ProjectG.ProductService.WriteApi/ProjectG.Product
 COPY ["ProjectG.ProductService/ProjectG.ProductService.Infrastructure/ProjectG.ProductService.Infrastructure.csproj", "ProjectG.ProductService/ProjectG.ProductService.Infrastructure/"]
 COPY ["ProjectG.ProductService/ProjectG.ProductService.Infrastructure.Cache/ProjectG.ProductService.Infrastructure.Cache.csproj", "ProjectG.ProductService/ProjectG.ProductService.Infrastructure.Cache/"]
 COPY ["ProjectG.ProductService/ProjectG.ProductService.Core/ProjectG.ProductService.Core.csproj", "ProjectG.ProductService/ProjectG.ProductService.Core/"]
+COPY ["ProjectG.ProductService/ProjectG.ProductService.Infrastructure.OrderApi/ProjectG.ProductService.Infrastructure.OrderApi.csproj", "ProjectG.ProductService/ProjectG.ProductService.Infrastructure.OrderApi/"]
 COPY ["ProjectG.ProductService/ProjectG.ProductService.Infrastructure.Db/ProjectG.ProductService.Infrastructure.Db.csproj", "ProjectG.ProductService/ProjectG.ProductService.Infrastructure.Db/"]
 COPY ["ProjectG.Core/ProjectG.Core.csproj", "ProjectG.Core/"]
 COPY . .

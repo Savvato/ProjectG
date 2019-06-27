@@ -73,7 +73,7 @@
 
             services.AddCap(options =>
             {
-                options.UsePostgreSql(this.configuration.GetConnectionString("DefaultConnection"));
+                options.UsePostgreSql(this.configuration.GetConnectionString("CapConnection"));
 
                 options.UseKafka(kafka =>
                 {
