@@ -1,0 +1,12 @@
+﻿@model IEnumerable<OrderModel>
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="list-group">
+            @foreach (OrderModel order in Model)
+            {
+                <a class="list-group-item list-group-item-action">ID: @order.Id, Created @order.DateCreated.ToString("f"), Positions: @order.OrderPositions.Count()</a>
+            }
+        </div>
+    </div>
+</div>

@@ -1,5 +1,4 @@
-﻿@using ProjectG.ClientService.Infrastructure.BasketApi.DTO
-@model CustomerDetailedModel
+﻿@model CustomerDetailedModel
 
 <div class="container-fluid">
     <div class="row justify-content-center">
@@ -23,9 +22,11 @@
                 <button type="submit" class="btn btn-primary mb-2">Generate basket positions</button>
             </form>
 
-            <form class="form-inline" asp-route-id="@Model.Customer.Id" asp-action="Create" asp-controller="Order" asp-area="Customer" method="post">
+            <form class="form-inline" asp-route-customerId="@Model.Customer.Id" asp-action="Create" asp-controller="Order" asp-area="Customer" method="post">
                 <button type="submit" class="btn btn-primary mb-2">Place an order</button>
             </form>
+            
+            <a class="btn btn-primary" asp-route-customerId="@Model.Customer.Id" asp-action="Index" asp-controller="Order" asp-area="Customer">Orders</a>
 
             @foreach (BasketPositionModel basketPosition in Model.Basket)
             {

@@ -1,13 +1,15 @@
 ﻿namespace ProjectG.ClientService.Web.Areas.Customer.Controllers
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
 
     using ProjectG.ClientService.Infrastructure.Interfaces;
+    using ProjectG.ClientService.Infrastructure.OrderApi.DTO;
 
     [Area("Customer")]
-    [Route("[area]/{id}/[controller]/[action]")]
+    [Route("[area]/{customerId}/[controller]/[action]")]
     public class OrderController : Controller
     {
         private readonly IOrderRepository orderRepository;
@@ -17,11 +19,18 @@
             this.orderRepository = orderRepository;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create(int id)
+        [HttpGet]
+        public async Task<IActionResult> Index(long customerId)
         {
-            await this.orderRepository.Create(id);
-            return this.RedirectToAction(actionName: "View", controllerName: "Home", routeValues: new { id = id });
+            IEnumerable<OrderModel> orders = await this.orderRepository.GetByCustomerId(customerId);
+            return this.View(orders);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(int customerId)
+        {
+            await this.orderRepository.Create(customerId);
+            return this.RedirectToAction(actionName: "View", controllerName: "Home", routeValues: new { id = customerId });
         }
     }
 }
