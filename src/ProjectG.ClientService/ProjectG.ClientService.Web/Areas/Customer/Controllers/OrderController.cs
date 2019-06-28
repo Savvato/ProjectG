@@ -30,7 +30,7 @@
         public async Task<IActionResult> Create(int customerId)
         {
             await this.orderRepository.Create(customerId);
-            return this.RedirectToAction(actionName: "View", controllerName: "Home", routeValues: new { id = customerId });
+            return this.RedirectToAction(actionName: "Index", controllerName: "Order", routeValues: new { customerId = customerId });
         }
     }
 }
