@@ -7,7 +7,9 @@
     using Microsoft.Extensions.DependencyInjection;
 
     using ProjectG.Core;
+    using ProjectG.OrderService.Infrastructure;
     using ProjectG.OrderService.Infrastructure.Db;
+    using ProjectG.OrderService.Infrastructure.Interfaces;
     using ProjectG.OrderService.WriteApi.Commands;
     using ProjectG.OrderService.WriteApi.DTO;
 
@@ -37,6 +39,10 @@
             });
 
             services.AddTransient<ICommandHandler<OrderInitModel>, InitializeOrderCreationCommand>();
+            services.AddTransient<ICommandHandler<CustomerBasketIsClearedEventModel>, CustomerBasketIsClearedCommand>();
+            services.AddTransient<ICommandHandler<ProductsAreReservedEventModel>, ProductsAreReservedCommand>();
+
+            services.AddScoped<IOrderRepository, OrderRepository>();
 
             services.AddCap(options =>
             {
@@ -58,8 +64,10 @@
         {
             using (IServiceScope serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
-                OrderDbContext dbContext = serviceScope.ServiceProvider.GetRequiredService<OrderDbContext>();
-                dbContext.Database.Migrate();
+                using (OrderDbContext dbContext = serviceScope.ServiceProvider.GetRequiredService<OrderDbContext>())
+                {
+                    dbContext.Database.Migrate();
+                }
             }
 
             if (env.IsDevelopment())

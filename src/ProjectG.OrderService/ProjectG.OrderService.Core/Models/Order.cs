@@ -25,6 +25,7 @@
         [Required]
         public OrderStatus Status { get; set; }
 
+        public OrderStatusDetails StatusDetails { get; set; }
 
         public IEnumerable<OrderPosition> OrderPositions { get; set; }
     }

@@ -32,14 +32,14 @@
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));
-            services.AddSingleton<OrderType>();
-            services.AddSingleton<OrderStatusType>();
-            services.AddSingleton<OrderPositionType>();
-            services.AddSingleton<OrderQuery>();
-            services.AddSingleton<OrderSchema>();
+            services.AddScoped<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));
+            services.AddScoped<OrderType>();
+            services.AddScoped<OrderStatusType>();
+            services.AddScoped<OrderPositionType>();
+            services.AddScoped<OrderQuery>();
+            services.AddScoped<OrderSchema>();
 
-            services.AddSingleton<IOrderRepository, OrderRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
 
             services.AddMvc();
 
@@ -53,13 +53,13 @@
                         optionsBuilder.EnableRetryOnFailure();
                         optionsBuilder.CommandTimeout(180);
                     });
-            }, ServiceLifetime.Singleton);
+            });
 
             services.AddGraphQL(options =>
                 {
                     options.ExposeExceptions = this.hostingEnvironment.IsDevelopment();
                 })
-                .AddGraphTypes(ServiceLifetime.Singleton);
+                .AddGraphTypes(ServiceLifetime.Scoped);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,8 +67,10 @@
         {
             using (IServiceScope serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
-                OrderDbContext dbContext = serviceScope.ServiceProvider.GetRequiredService<OrderDbContext>();
-                dbContext.Database.Migrate();
+                using (OrderDbContext dbContext = serviceScope.ServiceProvider.GetRequiredService<OrderDbContext>())
+                {
+                    dbContext.Database.Migrate();
+                }
             }
 
             if (env.IsDevelopment())

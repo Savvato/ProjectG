@@ -31,7 +31,7 @@
             GraphQLRequest request = new GraphQLRequest
             {
                 Query = @"
-                    query OrderQuery($productId: ID!) {
+                    query OrderQuery($orderId: ID!) {
                         order(id: $orderId) {
                             id
                             customerId
@@ -40,13 +40,13 @@
                             dateCreated
                             status
                             orderPositions {
-                                Id
-                                OrderId
-                                ProductId
-                                ProductName
-                                ProductDescription
-                                Count
-                                Price
+                                id
+                                orderId
+                                productId
+                                productName
+                                productDescription
+                                count
+                                price
                             }
                         }
                     }",

@@ -15,7 +15,7 @@
 
         public DateTime DateCreated { get; set; }
 
-        public OrderStatus Status { get; set; }
+        public string Status { get; set; }
 
         public IEnumerable<OrderPositionModel> OrderPositions { get; set; }
     }

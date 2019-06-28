@@ -21,7 +21,10 @@
 
         public IQueryable<Order> Get()
         {
-            return this.dbContext.Orders.Include(order => order.OrderPositions).AsQueryable();
+            return this.dbContext.Orders
+                .Include(order => order.OrderPositions)
+                .Include(order => order.StatusDetails)
+                .AsQueryable();
         }
 
         public async Task<Order> Get(long orderId)

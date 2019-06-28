@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\ProjectG.Core\ProjectG.Core.csproj" />
     <ProjectReference Include="..\ProjectG.OrderService.Infrastructure.Db\ProjectG.OrderService.Infrastructure.Db.csproj" />
+    <ProjectReference Include="..\ProjectG.OrderService.Infrastructure\ProjectG.OrderService.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

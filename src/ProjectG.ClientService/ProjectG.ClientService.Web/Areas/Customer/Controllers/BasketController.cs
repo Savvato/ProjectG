@@ -46,7 +46,7 @@
                 CustomerId = id,
                 ProductId = product.Id,
                 Price = product.Price,
-                Quantity = faker.Random.Int(1, product.Count)
+                Quantity = faker.Random.Int(1, product.Count / 2)
             });
 
             await Task.WhenAll(newBasketPositions.Select(this.basketRepository.Create));

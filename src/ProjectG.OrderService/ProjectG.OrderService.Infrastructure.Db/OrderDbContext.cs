@@ -10,6 +10,8 @@
     {
         public DbSet<Order> Orders { get; set; }
 
+        public DbSet<OrderStatusDetails> OrderStatusDetails { get; set; }
+
         public DbSet<OrderPosition> OrderPositions { get; set; }
 
         static OrderDbContext()

@@ -48,28 +48,28 @@
                         optionsBuilder.EnableRetryOnFailure();
                         optionsBuilder.CommandTimeout(180);
                     });
-            }, ServiceLifetime.Singleton);
+            });
 
-            services.AddSingleton<IProductReadApiClient, ProductReadApiClient>();
+            services.AddScoped<IProductReadApiClient, ProductReadApiClient>();
 
-            services.AddSingleton<IBasketRepository, BasketRepository>();
-            services.AddSingleton<IProductRepository, ProductRepository>();
+            services.AddScoped<IBasketRepository, BasketRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
 
-            services.AddSingleton<ICommandHandler<BasketPositionCreationModel>, CreateBasketPositionCommand>();
-            services.AddSingleton<ICommandHandler<ProductUpdatedEventModel>, ProductUpdatedCommand>();
-            services.AddSingleton<ICommandHandler<OrderCreatedEventModel>, OrderCreatedCommand>();
+            services.AddTransient<ICommandHandler<BasketPositionCreationModel>, CreateBasketPositionCommand>();
+            services.AddTransient<ICommandHandler<ProductUpdatedEventModel>, ProductUpdatedCommand>();
+            services.AddTransient<ICommandHandler<OrderCreatedEventModel>, OrderCreatedCommand>();
 
-            services.AddSingleton<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));
+            services.AddScoped<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));
 
-            services.AddSingleton<BasketPositionType>();
-            services.AddSingleton<BasketPositionQuery>();
-            services.AddSingleton<BasketPositionSchema>();
+            services.AddScoped<BasketPositionType>();
+            services.AddScoped<BasketPositionQuery>();
+            services.AddScoped<BasketPositionSchema>();
 
             services.AddGraphQL(options =>
                 {
                     options.ExposeExceptions = this.hostingEnvironment.IsDevelopment();
                 })
-                .AddGraphTypes(ServiceLifetime.Singleton);
+                .AddGraphTypes(ServiceLifetime.Transient);
 
             services.AddCap(options =>
             {

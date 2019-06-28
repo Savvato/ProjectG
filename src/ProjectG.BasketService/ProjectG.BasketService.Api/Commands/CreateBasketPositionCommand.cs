@@ -29,7 +29,7 @@
 
             if (await this.basketRepository.Exists(basketPosition))
             {
-                throw new InvalidDataException("This basket position has already exist");
+                throw new InvalidDataException("This basket position has already added");
             }
 
             ProductModel product = await this.productRepository.Get(basketPosition.ProductId);

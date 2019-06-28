@@ -250,6 +250,9 @@ services:
     image: 'bitnami/postgresql:latest'
     ports:
       - "5437:5437"
+    depends_on: 
+      - zookeeper
+      - kafka
     environment:
       - POSTGRESQL_PORT_NUMBER=5437
       - POSTGRESQL_PASSWORD=cap_password

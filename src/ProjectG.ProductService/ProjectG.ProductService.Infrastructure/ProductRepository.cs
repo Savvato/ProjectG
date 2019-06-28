@@ -23,7 +23,7 @@
 
         public IQueryable<Product> Get()
         {
-            return this.dbContext.Products;
+            return this.dbContext.Products.Where(product => product.Count > 0);
         }
 
         public async Task<Product> Get(long id)
@@ -32,7 +32,7 @@
 
             if (cachedProduct == null)
             {
-                cachedProduct = await this.dbContext.Products.FirstOrDefaultAsync(product => product.Id == id);
+                cachedProduct = await this.Get().FirstOrDefaultAsync(product => product.Id == id);
                 await this.cache.Set(cachedProduct);
             }
 

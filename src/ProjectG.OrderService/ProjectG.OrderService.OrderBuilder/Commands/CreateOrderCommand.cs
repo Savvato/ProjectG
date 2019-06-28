@@ -7,6 +7,8 @@
 
     using DotNetCore.CAP;
 
+    using Microsoft.Extensions.Logging;
+
     using ProjectG.Core;
     using ProjectG.OrderService.Core.Models;
     using ProjectG.OrderService.Infrastructure.BasketApi.DTO;
@@ -25,16 +27,20 @@
 
         private readonly ICapPublisher eventBus;
 
+        private readonly ILogger<CreateOrderCommand> logger;
+
         public CreateOrderCommand(
             IBasketRepository basketRepository,
             ICustomerRepository customerRepository,
             IOrderRepository orderRepository,
-            ICapPublisher eventBus)
+            ICapPublisher eventBus,
+            ILogger<CreateOrderCommand> logger)
         {
             this.basketRepository = basketRepository;
             this.customerRepository = customerRepository;
             this.orderRepository = orderRepository;
             this.eventBus = eventBus;
+            this.logger = logger;
         }
 
         [CapSubscribe(OrderInitTopicName)]
@@ -43,7 +49,7 @@
             IEnumerable<BasketPositionModel> basket = null;
             CustomerModel customer = null;
 
-            async Task LoadBasketData() => basket = await basketRepository.GetCustomerBasket(commandData.CustomerId);
+            async Task LoadBasketData() => basket = await this.basketRepository.GetCustomerBasket(commandData.CustomerId);
             async Task LoadCustomerData() => customer = await this.customerRepository.Get(commandData.CustomerId);
 
             await Task.WhenAll(LoadBasketData(), LoadCustomerData());
@@ -71,6 +77,8 @@
 
             await this.orderRepository.Create(order);
             await this.orderRepository.SaveChanges();
+
+            this.logger.LogInformation($"CREATED ORDER ID: {order.Id}");
 
             await this.eventBus.PublishAsync(
                 name: OrderCreatedTopicName,

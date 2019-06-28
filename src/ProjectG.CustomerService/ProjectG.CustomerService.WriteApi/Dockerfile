@@ -10,11 +10,9 @@ COPY ["ProjectG.CustomerService/ProjectG.CustomerService.Core/ProjectG.CustomerS
 COPY ["ProjectG.Core/ProjectG.Core.csproj", "ProjectG.Core/"]
 COPY . .
 WORKDIR "/src/ProjectG.CustomerService/ProjectG.CustomerService.WriteApi"
-
-FROM build AS publish
 RUN dotnet publish "ProjectG.CustomerService.WriteApi.csproj" -c Release -o /app
 
 FROM base AS final
 WORKDIR /app
-COPY --from=publish /app .
+COPY --from=build /app .
 ENTRYPOINT ["dotnet", "ProjectG.CustomerService.WriteApi.dll"]
