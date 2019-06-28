@@ -35,9 +35,13 @@
         {
             OrderModel order = await this.orderRepository.Get(commandData.OrderId);
 
-            await Task.WhenAll(order.OrderPositions.Select(this.UpdateProduct));
+            foreach (OrderPositionModel orderPosition in order.OrderPositions)
+            {
+                // Don't make it parallel
+                await this.UpdateProduct(orderPosition);
+            }
 
-            await eventBus.PublishAsync(
+            await this.eventBus.PublishAsync(
                 name: ProductsReservedTopicName,
                 contentObj: new ProductsAreReservedEventModel
                 {

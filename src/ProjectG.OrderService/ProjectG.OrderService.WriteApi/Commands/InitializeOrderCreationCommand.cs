@@ -20,7 +20,7 @@
 
         public async Task Execute(OrderInitModel commandData)
         {
-            await eventBus.PublishAsync(name: TopicName, contentObj: commandData);
+            await this.eventBus.PublishAsync(name: TopicName, contentObj: commandData);
         }
     }
 }

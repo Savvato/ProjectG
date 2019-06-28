@@ -75,8 +75,9 @@
 
             order.OrderPositions = orderPositions;
 
+            order.StatusDetails = new OrderStatusDetails();
+
             await this.orderRepository.Create(order);
-            await this.orderRepository.SaveChanges();
 
             this.logger.LogInformation($"CREATED ORDER ID: {order.Id}");
 
