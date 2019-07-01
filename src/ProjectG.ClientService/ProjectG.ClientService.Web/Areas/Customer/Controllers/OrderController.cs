@@ -26,6 +26,13 @@
             return this.View(orders);
         }
 
+        [HttpGet("{orderId}")]
+        public async Task<IActionResult> View(long customerId, long orderId)
+        {
+            OrderModel order = await this.orderRepository.Get(orderId);
+            return this.View(order);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create(int customerId)
         {

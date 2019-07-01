@@ -1,0 +1,49 @@
+﻿@model OrderModel
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-5">
+            <h3 class="display-4">Customer</h3><hr>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">First name:</span>
+                </div>
+                <input type="text" class="form-control" value="@Model.FirstName" disabled>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Surname:</span>
+                </div>
+                <input type="text" class="form-control" value="@Model.Surname" disabled>
+            </div>
+
+            <h3 class="display-4">Order</h3><hr>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Date created:</span>
+                </div>
+                <input type="text" class="form-control" value="@Model.DateCreated.ToString("f")" disabled>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Status:</span>
+                </div>
+                <input type="text" class="form-control" value="@Model.Status" disabled>
+            </div>
+        </div>
+        <div class="col-7">
+            <h3 class="display-4">Positions</h3><hr>
+            <ul class="list-group">
+                @foreach (OrderPositionModel orderPosition in @Model.OrderPositions)
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        @orderPosition.ProductName
+                        <span class="badge badge-primary badge-pill">Quantity: @orderPosition.Count</span>
+                        <span class="badge badge-primary badge-pill">Price: @orderPosition.Price.ToString("C")</span>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>

@@ -5,7 +5,14 @@
         <div class="list-group">
             @foreach (OrderModel order in Model)
             {
-                <a class="list-group-item list-group-item-action">ID: @order.Id, Created @order.DateCreated.ToString("f"), Positions: @order.OrderPositions.Count(), Status: @order.Status</a>
+                <a class="list-group-item list-group-item-action" 
+                   asp-route-customerId="@order.CustomerId" 
+                   asp-route-orderId="@order.Id" 
+                   asp-action="View" 
+                   asp-controller="Order" 
+                   asp-area="Customer">
+                    ID: @order.Id, Created @order.DateCreated.ToString("f"), Positions: @order.OrderPositions.Count(), Status: @order.Status
+                </a>
             }
         </div>
     </div>
