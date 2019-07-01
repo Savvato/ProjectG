@@ -34,6 +34,15 @@
             response.EnsureSuccessStatusCode();
         }
 
+        public async Task UpdateStatus(OrderStatusUpdateRequestModel orderStatusUpdateRequestModel)
+        {
+            HttpClient httpClient = this.CreateHttpClient();
+            StringContent content = new StringContent(JsonConvert.SerializeObject(orderStatusUpdateRequestModel), Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await httpClient.PostAsync("/api/order/status", content);
+            response.EnsureSuccessStatusCode();
+        }
+
         private HttpClient CreateHttpClient()
         {
             HttpClient httpClient = this.httpClientFactory.CreateClient();

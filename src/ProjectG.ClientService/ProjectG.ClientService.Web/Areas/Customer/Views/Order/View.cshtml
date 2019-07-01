@@ -31,6 +31,21 @@
                 </div>
                 <input type="text" class="form-control" value="@Model.Status" disabled>
             </div>
+
+            <form class="form-inline"
+                  asp-route-customerId="@Model.CustomerId"
+                  asp-route-orderId="@Model.Id"
+                  asp-action="Status"
+                  asp-controller="Order"
+                  asp-area="Customer" method="post">
+                @switch (@Model.Status)
+                {
+                    case OrderModel.OrderStatus.WaitingForPayment:
+                        <input type="hidden" name="status" value="@OrderModel.OrderStatus.Paid"/>
+                        <button type="submit" class="btn btn-success mb-2">Paid</button>
+                        break;
+                }
+            </form>
         </div>
         <div class="col-7">
             <h3 class="display-4">Positions</h3><hr>

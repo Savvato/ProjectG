@@ -12,5 +12,7 @@
         Task<IEnumerable<OrderModel>> GetByCustomerId(long customerId);
 
         Task Create(long customerId);
+
+        Task UpdateStatus(long orderId, string status);
     }
 }

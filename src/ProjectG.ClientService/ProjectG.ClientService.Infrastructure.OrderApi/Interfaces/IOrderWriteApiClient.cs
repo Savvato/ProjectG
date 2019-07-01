@@ -7,5 +7,7 @@
     public interface IOrderWriteApiClient
     {
         Task Create(OrderCreationRequestModel requestModel);
+
+        Task UpdateStatus(OrderStatusUpdateRequestModel orderStatusUpdateRequestModel);
     }
 }

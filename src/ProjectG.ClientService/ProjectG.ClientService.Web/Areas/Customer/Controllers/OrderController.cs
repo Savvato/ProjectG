@@ -39,5 +39,12 @@
             await this.orderRepository.Create(customerId);
             return this.RedirectToAction(actionName: "Index", controllerName: "Order", routeValues: new { customerId = customerId });
         }
+
+        [HttpPost("{orderId}")]
+        public async Task<IActionResult> Status(long customerId, long orderId, [FromForm] string status)
+        {
+            await this.orderRepository.UpdateStatus(orderId, status);
+            return this.RedirectToAction("View", new { customerId = customerId, orderId = orderId });
+        }
     }
 }

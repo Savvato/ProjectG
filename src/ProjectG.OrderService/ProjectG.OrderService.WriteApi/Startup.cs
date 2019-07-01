@@ -41,6 +41,7 @@
             services.AddTransient<ICommandHandler<OrderInitModel>, InitializeOrderCreationCommand>();
             services.AddTransient<ICommandHandler<CustomerBasketIsClearedEventModel>, CustomerBasketIsClearedCommand>();
             services.AddTransient<ICommandHandler<ProductsAreReservedEventModel>, ProductsAreReservedCommand>();
+            services.AddTransient<ICommandHandler<OrderStatusUpdateEventModel>, OrderStatusUpdateCommand>();
 
             services.AddScoped<IOrderRepository, OrderRepository>();
 

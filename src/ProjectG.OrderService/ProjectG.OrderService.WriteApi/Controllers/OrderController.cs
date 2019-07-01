@@ -12,21 +12,28 @@
     public class OrderController : ControllerBase
     {
         private readonly ICommandHandler<OrderInitModel> createOrderCommand;
+        private readonly ICommandHandler<OrderStatusUpdateEventModel> orderStatusUpdateCommand;
 
-        public OrderController(ICommandHandler<OrderInitModel> createOrderCommand)
+        public OrderController(
+            ICommandHandler<OrderInitModel> createOrderCommand, 
+            ICommandHandler<OrderStatusUpdateEventModel> orderStatusUpdateCommand)
         {
             this.createOrderCommand = createOrderCommand;
+            this.orderStatusUpdateCommand = orderStatusUpdateCommand;
         }
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] OrderInitModel orderInitModel)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.BadRequest(this.ModelState);
-            }
-
             await this.createOrderCommand.Execute(orderInitModel);
+
+            return this.Ok();
+        }
+
+        [HttpPost("status")]
+        public async Task<IActionResult> UpdateStatus([FromBody] OrderStatusUpdateEventModel orderStatusUpdateEventModel)
+        {
+            await this.orderStatusUpdateCommand.Execute(orderStatusUpdateEventModel);
 
             return this.Ok();
         }

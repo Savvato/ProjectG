@@ -34,5 +34,13 @@
         {
             await this.orderWriteApiClient.Create(new OrderCreationRequestModel { CustomerId = customerId});
         }
+
+        public async Task UpdateStatus(long orderId, string status)
+        {
+            await this.orderWriteApiClient.UpdateStatus(new OrderStatusUpdateRequestModel
+            {
+                OrderId = orderId, Status = status
+            });
+        }
     }
 }
