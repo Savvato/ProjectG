@@ -27,7 +27,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectG.ProductService.Rea
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProjectG.BasketService", "ProjectG.BasketService", "{ABFD8E12-4F5B-4E77-880E-386FBA066771}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectG.BasketService.Api", "ProjectG.BasketService\ProjectG.BasketService.Api\ProjectG.BasketService.Api.csproj", "{F20E5EB1-33B2-42D9-914F-B25CC2FF851D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectG.BasketService.WriteApi", "ProjectG.BasketService\ProjectG.BasketService.WriteApi\ProjectG.BasketService.WriteApi.csproj", "{F20E5EB1-33B2-42D9-914F-B25CC2FF851D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectG.Core", "ProjectG.Core\ProjectG.Core.csproj", "{884D0D11-EBC7-49E9-A24B-3654AD95DD0C}"
 EndProject
@@ -69,13 +69,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectG.OrderService.Infra
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectG.OrderService.OrderBuilder", "ProjectG.OrderService\ProjectG.OrderService.OrderBuilder\ProjectG.OrderService.OrderBuilder.csproj", "{43EB44EA-1704-4A9D-A0EE-249C906F4FAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectG.OrderService.Infrastructure", "ProjectG.OrderService\ProjectG.OrderService.Infrastructure\ProjectG.OrderService.Infrastructure.csproj", "{4B4FF3DB-47BC-4261-A8B9-48EDB6655D3F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectG.OrderService.Infrastructure", "ProjectG.OrderService\ProjectG.OrderService.Infrastructure\ProjectG.OrderService.Infrastructure.csproj", "{4B4FF3DB-47BC-4261-A8B9-48EDB6655D3F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectG.OrderService.Infrastructure.CustomerApi", "ProjectG.OrderService\ProjectG.OrderService.Infrastructure.CustomerApi\ProjectG.OrderService.Infrastructure.CustomerApi.csproj", "{5447A91C-D78F-4E32-8C7A-E1EAC66128DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectG.OrderService.Infrastructure.CustomerApi", "ProjectG.OrderService\ProjectG.OrderService.Infrastructure.CustomerApi\ProjectG.OrderService.Infrastructure.CustomerApi.csproj", "{5447A91C-D78F-4E32-8C7A-E1EAC66128DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectG.ProductService.Infrastructure.OrderApi", "ProjectG.ProductService\ProjectG.ProductService.Infrastructure.OrderApi\ProjectG.ProductService.Infrastructure.OrderApi.csproj", "{3674C517-D433-4956-AA82-EB9FD92A818B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectG.ProductService.Infrastructure.OrderApi", "ProjectG.ProductService\ProjectG.ProductService.Infrastructure.OrderApi\ProjectG.ProductService.Infrastructure.OrderApi.csproj", "{3674C517-D433-4956-AA82-EB9FD92A818B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectG.ClientService.Infrastructure.OrderApi", "ProjectG.ClientService\ProjectG.ClientService.Infrastructure.OrderApi\ProjectG.ClientService.Infrastructure.OrderApi.csproj", "{361EDB40-0767-41FF-ADFE-95D6DF80A7D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectG.ClientService.Infrastructure.OrderApi", "ProjectG.ClientService\ProjectG.ClientService.Infrastructure.OrderApi\ProjectG.ClientService.Infrastructure.OrderApi.csproj", "{361EDB40-0767-41FF-ADFE-95D6DF80A7D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectG.BasketService.ReadApi", "ProjectG.BasketService\ProjectG.BasketService.ReadApi\ProjectG.BasketService.ReadApi.csproj", "{31ED0B95-3567-4468-B65F-034F91CE2390}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -471,6 +473,18 @@ Global
 		{361EDB40-0767-41FF-ADFE-95D6DF80A7D9}.Release|x64.Build.0 = Release|Any CPU
 		{361EDB40-0767-41FF-ADFE-95D6DF80A7D9}.Release|x86.ActiveCfg = Release|Any CPU
 		{361EDB40-0767-41FF-ADFE-95D6DF80A7D9}.Release|x86.Build.0 = Release|Any CPU
+		{31ED0B95-3567-4468-B65F-034F91CE2390}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31ED0B95-3567-4468-B65F-034F91CE2390}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31ED0B95-3567-4468-B65F-034F91CE2390}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{31ED0B95-3567-4468-B65F-034F91CE2390}.Debug|x64.Build.0 = Debug|Any CPU
+		{31ED0B95-3567-4468-B65F-034F91CE2390}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{31ED0B95-3567-4468-B65F-034F91CE2390}.Debug|x86.Build.0 = Debug|Any CPU
+		{31ED0B95-3567-4468-B65F-034F91CE2390}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31ED0B95-3567-4468-B65F-034F91CE2390}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31ED0B95-3567-4468-B65F-034F91CE2390}.Release|x64.ActiveCfg = Release|Any CPU
+		{31ED0B95-3567-4468-B65F-034F91CE2390}.Release|x64.Build.0 = Release|Any CPU
+		{31ED0B95-3567-4468-B65F-034F91CE2390}.Release|x86.ActiveCfg = Release|Any CPU
+		{31ED0B95-3567-4468-B65F-034F91CE2390}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -507,6 +521,7 @@ Global
 		{5447A91C-D78F-4E32-8C7A-E1EAC66128DD} = {2A66A6B7-DC28-4EF9-9857-C814108DE242}
 		{3674C517-D433-4956-AA82-EB9FD92A818B} = {E6F72ABA-CE3A-498B-BF3A-2265699A94B2}
 		{361EDB40-0767-41FF-ADFE-95D6DF80A7D9} = {F4B4327A-96EA-4C86-A389-60BC1F7ECEB4}
+		{31ED0B95-3567-4468-B65F-034F91CE2390} = {ABFD8E12-4F5B-4E77-880E-386FBA066771}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {92B0239F-F43E-41C1-81FE-072C85F95A3A}

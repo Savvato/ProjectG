@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace ProjectG.BasketService.Api
+namespace ProjectG.BasketService.WriteApi
 {
     public class Program
     {

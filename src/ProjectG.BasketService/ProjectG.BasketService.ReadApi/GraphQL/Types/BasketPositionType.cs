@@ -1,4 +1,4 @@
-﻿namespace ProjectG.BasketService.Api.GraphQL.Types
+﻿namespace ProjectG.BasketService.ReadApi.GraphQL.Types
 {
     using global::GraphQL.Types;
 

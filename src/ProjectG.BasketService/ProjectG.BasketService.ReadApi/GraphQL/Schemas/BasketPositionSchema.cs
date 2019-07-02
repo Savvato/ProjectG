@@ -1,9 +1,9 @@
-﻿namespace ProjectG.BasketService.Api.GraphQL.Schemas
+﻿namespace ProjectG.BasketService.ReadApi.GraphQL.Schemas
 {
     using global::GraphQL;
     using global::GraphQL.Types;
 
-    using ProjectG.BasketService.Api.GraphQL.Queries;
+    using ProjectG.BasketService.ReadApi.GraphQL.Queries;
 
     public class BasketPositionSchema : Schema
     {

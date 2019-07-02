@@ -1,4 +1,4 @@
-﻿namespace ProjectG.BasketService.Api.Commands
+﻿namespace ProjectG.BasketService.WriteApi.Commands
 {
     using System.Linq;
     using System.Threading.Tasks;
@@ -7,8 +7,8 @@
 
     using Microsoft.EntityFrameworkCore;
 
-    using ProjectG.BasketService.Api.DTO;
     using ProjectG.BasketService.Infrastructure.Interfaces;
+    using ProjectG.BasketService.WriteApi.DTO;
     using ProjectG.Core;
 
     public class ProductUpdatedCommand : ICommandHandler<ProductUpdatedEventModel>, ICapSubscribe

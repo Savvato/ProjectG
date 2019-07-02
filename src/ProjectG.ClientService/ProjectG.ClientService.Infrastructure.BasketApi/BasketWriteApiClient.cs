@@ -37,7 +37,7 @@
         private HttpClient CreateHttpClient()
         {
             HttpClient httpClient = this.httpClientFactory.CreateClient();
-            httpClient.BaseAddress = new Uri(this.configuration["BasketApi:BaseApiUrl"]);
+            httpClient.BaseAddress = new Uri(this.configuration["BasketApi:BaseWriteApiUrl"]);
 
             return httpClient;
         }

@@ -1,13 +1,13 @@
-﻿namespace ProjectG.BasketService.Api.Commands
+﻿namespace ProjectG.BasketService.WriteApi.Commands
 {
     using System.IO;
     using System.Threading.Tasks;
 
-    using ProjectG.BasketService.Api.DTO;
-    using ProjectG.BasketService.Api.Extensions;
+    using ProjectG.BasketService.WriteApi.Extensions;
     using ProjectG.BasketService.Core.Models;
     using ProjectG.BasketService.Infrastructure.Interfaces;
     using ProjectG.BasketService.Infrastructure.ProductApi.Models;
+    using ProjectG.BasketService.WriteApi.DTO;
     using ProjectG.Core;
 
     public class CreateBasketPositionCommand : ICommandHandler<BasketPositionCreationModel>

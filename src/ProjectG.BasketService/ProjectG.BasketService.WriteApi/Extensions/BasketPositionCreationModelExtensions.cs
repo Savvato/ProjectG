@@ -1,7 +1,7 @@
-﻿namespace ProjectG.BasketService.Api.Extensions
+﻿namespace ProjectG.BasketService.WriteApi.Extensions
 {
-    using ProjectG.BasketService.Api.DTO;
     using ProjectG.BasketService.Core.Models;
+    using ProjectG.BasketService.WriteApi.DTO;
 
     public static class BasketPositionCreationModelExtensions
     {

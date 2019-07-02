@@ -1,9 +1,5 @@
-﻿namespace ProjectG.BasketService.Api
+﻿namespace ProjectG.BasketService.WriteApi
 {
-    using global::GraphQL;
-    using global::GraphQL.Server;
-    using global::GraphQL.Server.Ui.Playground;
-
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
@@ -11,16 +7,13 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
 
-    using ProjectG.BasketService.Api.Commands;
-    using ProjectG.BasketService.Api.DTO;
-    using ProjectG.BasketService.Api.GraphQL.Queries;
-    using ProjectG.BasketService.Api.GraphQL.Schemas;
-    using ProjectG.BasketService.Api.GraphQL.Types;
     using ProjectG.BasketService.Infrastructure;
     using ProjectG.BasketService.Infrastructure.Db;
     using ProjectG.BasketService.Infrastructure.Interfaces;
     using ProjectG.BasketService.Infrastructure.ProductApi;
     using ProjectG.BasketService.Infrastructure.ProductApi.Interfaces;
+    using ProjectG.BasketService.WriteApi.Commands;
+    using ProjectG.BasketService.WriteApi.DTO;
     using ProjectG.Core;
 
     public class Startup
@@ -41,7 +34,7 @@
             services.AddDbContext<BasketDbContext>(options =>
             {
                 options.UseNpgsql(
-                    connectionString: configuration.GetConnectionString("DefaultConnection"),
+                    connectionString: this.configuration.GetConnectionString("DefaultConnection"),
                     optionsBuilder =>
                     {
                         optionsBuilder.MigrationsAssembly(assemblyName: typeof(BasketDbContext).Assembly.GetName().Name);
@@ -58,18 +51,6 @@
             services.AddTransient<ICommandHandler<BasketPositionCreationModel>, CreateBasketPositionCommand>();
             services.AddTransient<ICommandHandler<ProductUpdatedEventModel>, ProductUpdatedCommand>();
             services.AddTransient<ICommandHandler<OrderCreatedEventModel>, OrderCreatedCommand>();
-
-            services.AddScoped<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));
-
-            services.AddScoped<BasketPositionType>();
-            services.AddScoped<BasketPositionQuery>();
-            services.AddScoped<BasketPositionSchema>();
-
-            services.AddGraphQL(options =>
-                {
-                    options.ExposeExceptions = this.hostingEnvironment.IsDevelopment();
-                })
-                .AddGraphTypes(ServiceLifetime.Transient);
 
             services.AddCap(options =>
             {
@@ -99,15 +80,7 @@
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseGraphQL<BasketPositionSchema>(path: "/graphql/basket");
-
-            if (this.hostingEnvironment.IsDevelopment())
-            {
-                app.UseGraphQLPlayground(options: new GraphQLPlaygroundOptions
-                {
-                    GraphQLEndPoint = "/graphql/basket"
-                });
-            }
+            
             
             app.UseMvc();
         }

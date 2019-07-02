@@ -1,10 +1,10 @@
-﻿namespace ProjectG.BasketService.Api.Controllers
+﻿namespace ProjectG.BasketService.WriteApi.Controllers
 {
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
 
-    using ProjectG.BasketService.Api.DTO;
+    using ProjectG.BasketService.WriteApi.DTO;
     using ProjectG.Core;
 
     [Route("api/[controller]")]

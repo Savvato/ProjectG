@@ -1,4 +1,4 @@
-﻿namespace ProjectG.BasketService.Api.DTO
+﻿namespace ProjectG.BasketService.WriteApi.DTO
 {
     public class OrderCreatedEventModel
     {

@@ -19,8 +19,8 @@ services:
       ASPNETCORE_ENVIRONMENT: Development
       CustomerApi__GraphQLEndpoint: "http://customer-read-api:80/graphql/customer"
       CustomerApi__BaseWriteApiUrl: "http://customer-write-api:80/"
-      BasketApi__GraphQLEndpoint: "http://basket-api:80/graphql/basket"
-      BasketApi__BaseApiUrl: "http://basket-api:80/"
+      BasketApi__GraphQLEndpoint: "http://basket-read-api:80/graphql/basket"
+      BasketApi__BaseWriteApiUrl: "http://basket-write-api:80/"
       ProductApi__GraphQLEndpoint: "http://product-read-api:80/graphql/product"
       ProductApi__BaseWriteApiUrl: "http://product-write-api:80/"
       OrderApi__GraphQLEndpoint: "http://order-read-api:80/graphql/order"
@@ -76,7 +76,7 @@ services:
       Kafka__Servers: "kafka:9092"
       Kafka__Username: "kafka_user"
       Kafka__Password: "kafka_password"
-      BasketApi__GraphQLEndpoint: "http://basket-api:80/graphql/basket"
+      BasketApi__GraphQLEndpoint: "http://basket-read-api:80/graphql/basket"
       CustomerApi__GraphQLEndpoint: "http://customer-read-api:80/graphql/customer"
 
   customer-write-api:
@@ -139,12 +139,12 @@ services:
       Kafka__Username: "kafka_user"
       Kafka__Password: "kafka_password"
 
-  basket-api:
+  basket-write-api:
     ports:
       - "50058:80"
     build:
       context: src/
-      dockerfile: ProjectG.BasketService/ProjectG.BasketService.Api/Dockerfile
+      dockerfile: ProjectG.BasketService/ProjectG.BasketService.WriteApi/Dockerfile
     depends_on: 
       - basket-db-postgresql
       - zookeeper
@@ -158,6 +158,19 @@ services:
       Kafka__Servers: "kafka:9092"
       Kafka__Username: "kafka_user"
       Kafka__Password: "kafka_password"
+  
+  basket-read-api:
+    ports:
+      - "50059:80"
+    build:
+      context: src/
+      dockerfile: ProjectG.BasketService/ProjectG.BasketService.WriteApi/Dockerfile
+    depends_on: 
+      - basket-db-postgresql
+      - basket-write-api
+    environment: 
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__DefaultConnection: "Host=basket-db-postgresql;Port=5436;Username=postgres;Password=basket_password;Database=basket_db"
 
   product-redis:
     image: 'bitnami/redis:latest'

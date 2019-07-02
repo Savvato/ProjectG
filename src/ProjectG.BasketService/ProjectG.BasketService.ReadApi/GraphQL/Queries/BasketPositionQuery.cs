@@ -1,9 +1,9 @@
-﻿namespace ProjectG.BasketService.Api.GraphQL.Queries
+﻿namespace ProjectG.BasketService.ReadApi.GraphQL.Queries
 {
     using global::GraphQL.Types;
 
-    using ProjectG.BasketService.Api.GraphQL.Types;
     using ProjectG.BasketService.Infrastructure.Interfaces;
+    using ProjectG.BasketService.ReadApi.GraphQL.Types;
 
     public class BasketPositionQuery : ObjectGraphType
     {
