@@ -44,6 +44,10 @@
                         <input type="hidden" name="status" value="@OrderModel.OrderStatus.Paid"/>
                         <button type="submit" class="btn btn-success mb-2">Paid</button>
                         break;
+                    case OrderModel.OrderStatus.Paid:
+                        <input type="hidden" name="status" value="@OrderModel.OrderStatus.Sent"/>
+                        <button type="submit" class="btn btn-success mb-2">Sent</button>
+                        break;
                 }
             </form>
         </div>
