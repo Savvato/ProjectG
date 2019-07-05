@@ -154,6 +154,7 @@ services:
     environment: 
       ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__DefaultConnection: "Host=basket-db-postgresql;Port=5436;Username=postgres;Password=basket_password;Database=basket_db"
+      ConnectionStrings__Redis: "basket-redis:6380,password=basket_password"
       ConnectionStrings__CapConnection: "Host=cap-db-postgresql;Port=5437;Username=postgres;Password=cap_password;Database=cap_db"
       ProductApi__GraphQLEndpoint: "http://product-read-api:80/graphql/product"
       Kafka__Servers: "kafka:9092"
@@ -172,6 +173,14 @@ services:
     environment: 
       ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__DefaultConnection: "Host=basket-db-postgresql;Port=5436;Username=postgres;Password=basket_password;Database=basket_db"
+      ConnectionStrings__Redis: "basket-redis:6380,password=basket_password"
+
+  basket-redis:
+    image: 'bitnami/redis:latest'
+    ports:
+      - "6380:6380"
+    environment:
+      - REDIS_PASSWORD=basket_password
 
   product-redis:
     image: 'bitnami/redis:latest'

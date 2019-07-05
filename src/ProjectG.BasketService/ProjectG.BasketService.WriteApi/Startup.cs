@@ -8,6 +8,8 @@
     using Microsoft.Extensions.DependencyInjection;
 
     using ProjectG.BasketService.Infrastructure;
+    using ProjectG.BasketService.Infrastructure.Cache;
+    using ProjectG.BasketService.Infrastructure.Cache.Interfaces;
     using ProjectG.BasketService.Infrastructure.Db;
     using ProjectG.BasketService.Infrastructure.Interfaces;
     using ProjectG.BasketService.Infrastructure.ProductApi;
@@ -42,6 +44,14 @@
                         optionsBuilder.CommandTimeout(180);
                     });
             });
+
+            services.AddDistributedRedisCache(options =>
+            {
+                options.InstanceName = "BasketCache";
+                options.Configuration = this.configuration.GetConnectionString("Redis");
+            });
+
+            services.AddScoped<IBasketCache, BasketCache>();
 
             services.AddScoped<IProductReadApiClient, ProductReadApiClient>();
 

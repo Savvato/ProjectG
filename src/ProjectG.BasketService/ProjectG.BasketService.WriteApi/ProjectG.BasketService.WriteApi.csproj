@@ -12,12 +12,14 @@
     <PackageReference Include="DotNetCore.CAP.PostgreSql" Version="2.5.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Redis" Version="2.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.4.10" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\ProjectG.Core\ProjectG.Core.csproj" />
+    <ProjectReference Include="..\ProjectG.BasketService.Infrastructure.Cache\ProjectG.BasketService.Infrastructure.Cache.csproj" />
     <ProjectReference Include="..\ProjectG.BasketService.Infrastructure.Db\ProjectG.BasketService.Infrastructure.Db.csproj" />
     <ProjectReference Include="..\ProjectG.BasketService.Infrastructure.ProductApi\ProjectG.BasketService.Infrastructure.ProductApi.csproj" />
     <ProjectReference Include="..\ProjectG.BasketService.Infrastructure\ProjectG.BasketService.Infrastructure.csproj" />

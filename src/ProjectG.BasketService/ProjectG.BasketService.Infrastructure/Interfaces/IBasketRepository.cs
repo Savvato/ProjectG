@@ -21,5 +21,7 @@
         Task RemoveCustomerBasket(long customerId);
 
         Task SaveChanges();
+
+        Task Refresh(params long[] customerIds);
     }
 }

@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ProjectG.BasketService.Core\ProjectG.BasketService.Core.csproj" />
+    <ProjectReference Include="..\ProjectG.BasketService.Infrastructure.Cache\ProjectG.BasketService.Infrastructure.Cache.csproj" />
     <ProjectReference Include="..\ProjectG.BasketService.Infrastructure.Db\ProjectG.BasketService.Infrastructure.Db.csproj" />
     <ProjectReference Include="..\ProjectG.BasketService.Infrastructure.ProductApi\ProjectG.BasketService.Infrastructure.ProductApi.csproj" />
   </ItemGroup>
