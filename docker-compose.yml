@@ -14,7 +14,8 @@ services:
       - customer-read-api
       - product-read-api
       - product-write-api
-      - basket-api
+      - basket-read-api
+      - basket-write-api
     environment: 
       ASPNETCORE_ENVIRONMENT: Development
       CustomerApi__GraphQLEndpoint: "http://customer-read-api:80/graphql/customer"
@@ -161,10 +162,10 @@ services:
   
   basket-read-api:
     ports:
-      - "50059:80"
+      - "50060:80"
     build:
       context: src/
-      dockerfile: ProjectG.BasketService/ProjectG.BasketService.WriteApi/Dockerfile
+      dockerfile: ProjectG.BasketService/ProjectG.BasketService.ReadApi/Dockerfile
     depends_on: 
       - basket-db-postgresql
       - basket-write-api
