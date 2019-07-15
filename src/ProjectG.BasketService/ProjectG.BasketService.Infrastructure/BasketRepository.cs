@@ -1,5 +1,4 @@
-﻿
-namespace ProjectG.BasketService.Infrastructure
+﻿namespace ProjectG.BasketService.Infrastructure
 {
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
