@@ -11,22 +11,17 @@
     [ApiController]
     public class BasketController : ControllerBase
     {
-        private readonly ICommandHandler<BasketPositionCreationModel> createBasketPositionCommand;
-
-        public BasketController(ICommandHandler<BasketPositionCreationModel> createBasketPositionCommand)
-        {
-            this.createBasketPositionCommand = createBasketPositionCommand;
-        }
-
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] BasketPositionCreationModel basketPositionCreationModel)
+        public async Task<IActionResult> Post(
+            [FromServices] ICommandHandler<BasketPositionCreationModel> createBasketPositionCommand,
+            [FromBody] BasketPositionCreationModel basketPositionCreationModel)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.BadRequest(this.ModelState);
             }
 
-            await this.createBasketPositionCommand.Execute(basketPositionCreationModel);
+            await createBasketPositionCommand.Execute(basketPositionCreationModel);
             return this.Accepted();
         }
     }

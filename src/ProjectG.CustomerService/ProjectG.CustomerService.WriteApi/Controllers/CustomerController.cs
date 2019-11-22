@@ -11,21 +11,16 @@
     [ApiController]
     public class CustomerController : ControllerBase
     {
-        private readonly ICommandHandler<CustomerCreationModel> createCustomerCommand;
-
-        public CustomerController(ICommandHandler<CustomerCreationModel> createCustomerCommand)
-        {
-            this.createCustomerCommand = createCustomerCommand;
-        }
-
-        public async Task<IActionResult> Post([FromBody] CustomerCreationModel customerCreationModel)
+        public async Task<IActionResult> Post(
+            [FromServices] ICommandHandler<CustomerCreationModel> createCustomerCommand,
+            [FromBody] CustomerCreationModel customerCreationModel)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.BadRequest(this.ModelState);
             }
 
-            await this.createCustomerCommand.Execute(customerCreationModel);
+            await createCustomerCommand.Execute(customerCreationModel);
 
             return this.Accepted();
         }
